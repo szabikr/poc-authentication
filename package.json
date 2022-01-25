@@ -7,9 +7,13 @@
   "author": "szabikr <szabikr.dev@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node server/app.js"
+    "start": "node server/app.js",
+    "start:dev": "nodemon server/app.js"
   },
   "dependencies": {
     "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
