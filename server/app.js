@@ -21,13 +21,54 @@ let todos = [
 ]
 
 app.get('/api/todos', (req, res) => {
-  res.send(todos)
+  return res.send(todos)
 })
 
 app.post('/api/todo', (req, res) => {
-  console.log('Request Body:', req.body)
+  if (!req.body || !req.body.content || req.body.content === '') {
+    return res.status(400).end('Invalid Request Body')
+  }
+
   const id = uuidv4()
-  res.json({ id: id })
+  todos.push({
+    id,
+    content: req.body.content,
+  })
+  return res.json({ id: id })
+})
+
+app.put('/api/todo/:id', (req, res) => {
+  if (!req.params.id) {
+    return res.status(400).end('Invalid Request')
+  }
+
+  let todo = todos.find(todo => todo.id === req.params.id)
+
+  if (todo === undefined) {
+    return res.status(404).end(`Todo with id: ${req.params.id} does not exist`)
+  }
+
+  if (todo.completed) {
+    todo.completed = false
+  } else {
+    todo.completed = true
+  }
+  
+  return res.json(todo);
+})
+
+app.delete('/api/todo/:id', (req, res) => {
+  if (!req.params.id) {
+    return res.status(400).end('Invalid Request')
+  }
+
+  const index = todos.findIndex(todo => todo.id === req.params.id)
+
+  if (index > -1) {
+    todos.splice(index, 1)
+  }
+
+  return res.status(200).end();
 })
 
 app.get('/', (req, res) => {
