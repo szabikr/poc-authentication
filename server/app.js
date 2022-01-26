@@ -1,9 +1,12 @@
 const express = require('express')
 const { v4: uuidv4 } = require('uuid')
+const loggerMiddleware = require('./logger-middleware')
+
 const app = express()
 const port = process.env.PORT || 3000
 
 app.use(express.json())
+app.use(loggerMiddleware)
 
 let todos = [
   {

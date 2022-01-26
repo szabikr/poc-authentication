@@ -8,13 +8,14 @@
   "license": "MIT",
   "scripts": {
     "start": "node server/app.js",
-    "start:dev": "nodemon server/app.js"
+    "start:dev": "nodemon -r dotenv/config server/app.js"
   },
   "dependencies": {
     "express": "^4.17.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "dotenv": "^14.3.2",
     "nodemon": "^2.0.15"
   }
 }
