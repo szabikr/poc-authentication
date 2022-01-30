@@ -1,4 +1,4 @@
-const { readTodos, updateTodo } = require('./db')
+const { readTodos } = require('../db')
 
 const renderTodo = ({ id, content, completed }) => `
   <div>
@@ -27,27 +27,6 @@ async function todosPage(req, res) {
   `)
 }
 
-async function moveToDone(req, res) {
-  if (!req.query.todos) {
-    return res.redirect('/todos')
-  }
-
-  if (!Array.isArray(req.query.todos)) {
-    req.query.todos = [req.query.todos]
-  }
-  
-  const promises = req.query.todos.map(async id => {
-    const completed = true
-    await updateTodo(id, completed)
-    console.log(`todo item ${id} is moved to done`)
-  })
-
-  await Promise.all(promises)
-
-  return res.redirect('/todos')
-}
-
 module.exports = {
   todosPage,
-  moveToDone,
 }

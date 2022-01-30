@@ -1,7 +1,7 @@
 const express = require('express')
 const loggerMiddleware = require('./logger-middleware')
 const apiHandlers = require('./api-handlers')
-const uiHandlers = require('./ui-handlers')
+const uiHandlers = require('./ui/handlers')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -16,7 +16,7 @@ app.put('/api/todo/:id', apiHandlers.putTodoHandler)
 app.delete('/api/todo/:id', apiHandlers.deleteTodoHandler)
 
 app.get('/todos', uiHandlers.todosPage)
-app.get('/move-to-done', uiHandlers.moveToDone)
+app.get('/move-to-done', uiHandlers.moveToDoneAction)
 
 app.get('/', (req, res) => {
   res.send('<body><h1>Move to Done</h1><p>Frontend application coming soon...</p></body>')
