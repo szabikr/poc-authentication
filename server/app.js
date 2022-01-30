@@ -16,6 +16,7 @@ app.put('/api/todo/:id', apiHandlers.putTodoHandler)
 app.delete('/api/todo/:id', apiHandlers.deleteTodoHandler)
 
 app.get('/todos', uiHandlers.todosPage)
+app.get('/move-to-done', uiHandlers.moveToDone)
 
 app.get('/', (req, res) => {
   res.send('<body><h1>Move to Done</h1><p>Frontend application coming soon...</p></body>')
