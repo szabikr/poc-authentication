@@ -2,7 +2,10 @@ const { readTodos } = require('../db')
 
 const renderTodo = ({ id, content, completed }) => `
   <div>
-    <input type="checkbox" id="todo-${id}" name="todos" value="${id}" ${completed ? 'checked' : ''}>
+    <input 
+      type="checkbox" id="todo-${id}" name="todos" value="${id}"
+      ${completed ? 'checked' : ''}
+    />
     <label for="todo-${id}">${content}</label>
   </div>
 `
