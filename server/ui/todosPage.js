@@ -1,4 +1,4 @@
-const { readTodos } = require('../db')
+const { readTodos } = require('../db/todos-collection')
 
 const renderTodo = ({ id, content, completed }) => `
   <div>

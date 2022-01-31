@@ -1,4 +1,4 @@
-const { updateTodo } = require('../db')
+const { updateTodo } = require('../db/todos-collection')
 
 async function moveToDoneAction(req, res) {
   if (!req.query.todos) {

@@ -1,6 +1,6 @@
 const express = require('express')
 const loggerMiddleware = require('./logger-middleware')
-const apiHandlers = require('./api-handlers')
+const apiHandlers = require('./api/handlers')
 const uiHandlers = require('./ui/handlers')
 
 const app = express()
@@ -16,6 +16,8 @@ app.delete('/api/todo/:id', apiHandlers.deleteTodoHandler)
 
 app.get('/api/todos', apiHandlers.getTodosHandler)
 app.put('/api/todos/reset', apiHandlers.resetTodosHandler)
+
+app.post('/api/complete-todo/:id', apiHandlers.completeTodoHandler)
 
 app.get('/todos', uiHandlers.todosPage)
 app.get('/move-to-done', uiHandlers.moveToDoneAction)

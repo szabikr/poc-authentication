@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid')
 const {
   readTodo, readTodos, createTodo, updateTodo, deleteTodo, resetAllTodos,
-} = require('./db')
+} = require('../db/todos-collection')
 
 async function getTodoHandler(req, res) {
   if (!req.params.id) {
