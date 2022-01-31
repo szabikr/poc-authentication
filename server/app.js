@@ -10,10 +10,12 @@ app.use(express.json())
 app.use(loggerMiddleware)
 
 app.get('/api/todo/:id', apiHandlers.getTodoHandler)
-app.get('/api/todos', apiHandlers.getTodosHandler)
 app.post('/api/todo', apiHandlers.postTodoHandler)
 app.put('/api/todo/:id', apiHandlers.putTodoHandler)
 app.delete('/api/todo/:id', apiHandlers.deleteTodoHandler)
+
+app.get('/api/todos', apiHandlers.getTodosHandler)
+app.put('/api/todos/reset', apiHandlers.resetTodosHandler)
 
 app.get('/todos', uiHandlers.todosPage)
 app.get('/move-to-done', uiHandlers.moveToDoneAction)

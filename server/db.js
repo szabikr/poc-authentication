@@ -110,10 +110,32 @@ async function deleteTodo(id) {
   }
 }
 
+async function resetAllTodos() {
+  const client = getDbClient()
+
+  try { 
+    await client.connect()
+    const collection = client.db('todos-db').collection('todos')
+
+    const filter = {}
+    const updateDoc = { $set: { completed: false } }
+    const result = await collection.updateMany(filter, updateDoc)
+
+    return result.matchedCount > 0
+  } catch (err) {
+    console.error(err)
+  }
+  finally { 
+    client.close()
+    console.log('db connection closed')
+  }
+}
+
 module.exports = {
   readTodo,
   readTodos,
   createTodo,
   updateTodo,
   deleteTodo,
+  resetAllTodos,
 }
