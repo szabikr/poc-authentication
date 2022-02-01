@@ -10,7 +10,6 @@ async function completeTodoHandler(req, res) {
   const todo = await readTodo(req.params.id)
 
   if (!todo) {
-    console.log('todo is not available please create it first')
     res.status(404).end('Todo not yet avaialbe')
   }
 
@@ -29,7 +28,7 @@ async function completeTodoHandler(req, res) {
     return res.status(500).end('Internal server error')
   }
 
-  return res.json({ id: id, when: when })
+  return res.json({ id, when })
 }
 
 module.exports = {

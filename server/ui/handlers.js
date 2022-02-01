@@ -1,5 +1,5 @@
-const { todosPage } = require('./todosPage')
-const { moveToDoneAction } = require('./moveToDoneAction')
+const { todosPage } = require('./todos-page')
+const { moveToDoneAction } = require('./move-to-done-action')
 
 module.exports = {
   todosPage,
