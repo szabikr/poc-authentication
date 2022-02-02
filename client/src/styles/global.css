@@ -6,3 +6,18 @@ body {
   font-family: 'Montserrat', sans-serif;
   margin: 0;
 }
+
+a {
+  font-family: 'Montserrat', sans-serif;
+}
+
+a.primary {
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid #EEEEEE;
+  border-radius: 0.7rem;
+  line-height: 2rem;
+  width: 200px;
+  background-color: green;
+  color: #EEEEEE;
+}
