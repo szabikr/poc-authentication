@@ -1,22 +1,4 @@
 {
-  "name": "move-to-done",
-  "version": "1.0.0",
-  "description": "A simple todo app built with MERN stack",
-  "main": "index.js",
-  "repository": "git@github.com:szabikr/move-to-done.git",
-  "author": "szabikr <szabikr.dev@gmail.com>",
-  "license": "MIT",
-  "scripts": {
-    "start": "node server/app.js",
-    "dev": "nodemon -r dotenv/config server/app.js"
-  },
-  "dependencies": {
-    "express": "^4.17.2",
-    "mongodb": "^4.3.1",
-    "uuid": "^8.3.2"
-  },
-  "devDependencies": {
-    "dotenv": "^14.3.2",
-    "nodemon": "^2.0.15"
-  }
+  "private": true,
+  "workspaces": ["packages/*"]
 }
