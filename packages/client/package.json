@@ -1,6 +1,6 @@
 {
-  "name": "move-to-done-app",
-  "version": "1.0.0",
+  "name": "@mtd/client",
+  "version": "0.0.1",
   "description": "Todo application that allows you to track what you've done",
   "main": "index.js",
   "repository": "https://github.com/szabikr/move-to-done",
