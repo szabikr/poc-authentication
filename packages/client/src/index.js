@@ -7,11 +7,9 @@ import App from './app'
 import './styles/global.css'
 
 ReactDOM.render(
-  <React.Fragment>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
-  </React.Fragment>,
-  document.getElementById('root')
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <App />
+  </ThemeProvider>,
+  document.getElementById('root'),
 )
