@@ -8,7 +8,9 @@
   "license": "MIT",
   "scripts": {
     "start": "node src/app.js",
-    "dev": "nodemon -r dotenv/config src/app.js"
+    "dev": "nodemon -r dotenv/config src/app.js",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
   },
   "dependencies": {
     "express": "^4.17.2",
