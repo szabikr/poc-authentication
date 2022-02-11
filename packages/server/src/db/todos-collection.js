@@ -15,6 +15,7 @@ async function readTodo(id) {
     return todo
   } catch (err) {
     console.error(err)
+    return err
   } finally {
     await client.close()
     console.log('db connection closed')
@@ -38,6 +39,7 @@ async function readTodos() {
     }))
   } catch (err) {
     console.error(err)
+    return err
   } finally {
     await client.close()
     console.log('db connection closed')
@@ -57,6 +59,7 @@ async function createTodo(todo) {
     return result.acknowledged
   } catch (err) {
     console.error(err)
+    return err
   } finally {
     await client.close()
     console.log('db connection closed')
@@ -78,6 +81,7 @@ async function updateTodo(id, completed) {
     return result.modifiedCount > 0
   } catch (err) {
     console.error(err)
+    return err
   } finally {
     await client.close()
     console.log('db connection closed')
@@ -97,6 +101,7 @@ async function deleteTodo(id) {
     return result.deletedCount > 0
   } catch (err) {
     console.log(err)
+    return err
   } finally {
     await client.close()
     console.log('db connection closed')
@@ -117,6 +122,7 @@ async function resetAllTodos() {
     return result.matchedCount > 0
   } catch (err) {
     console.error(err)
+    return err
   } finally {
     client.close()
     console.log('db connection closed')
