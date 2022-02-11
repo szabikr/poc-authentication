@@ -7,8 +7,10 @@
   "author": "szabikr <szabikr.dev@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon -r dotenv/config app.js"
+    "start": "node src/app.js",
+    "dev": "nodemon -r dotenv/config src/app.js",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix"
   },
   "dependencies": {
     "express": "^4.17.2",
@@ -17,6 +19,9 @@
   },
   "devDependencies": {
     "dotenv": "^14.3.2",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
     "nodemon": "^2.0.15"
   }
 }

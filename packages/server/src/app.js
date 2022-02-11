@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000
 
 app.use(express.json())
 app.use(loggerMiddleware)
-app.use(express.static(path.join(__dirname, '../client/build')))
+app.use(express.static(path.join(__dirname, '../../client/build')))
 
 app.get('/api/todo/:id', apiHandlers.getTodoHandler)
 app.post('/api/todo', apiHandlers.postTodoHandler)
@@ -25,7 +25,7 @@ app.get('/todos', uiHandlers.todosPage)
 app.get('/move-to-done', uiHandlers.moveToDoneAction)
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'))
+  res.sendFile(path.join(__dirname, '../../client/build/index.html'))
 })
 
 app.listen(port, () => {

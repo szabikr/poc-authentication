@@ -1,5 +1,4 @@
-
-const loggerMiddleware = function (req, res, next) {
+const loggerMiddleware = (req, res, next) => {
   if (process.env.LOG_LEVEL === 'OFF') {
     return next()
   }
@@ -14,8 +13,8 @@ const loggerMiddleware = function (req, res, next) {
   console.log(`Params: ${JSON.stringify(req.params, null, 2)}`)
   console.log(`Query: ${JSON.stringify(req.query, null, 2)}`)
   console.log(`Body: ${JSON.stringify(req.body, null, 2)}`)
-  
-  next()
+
+  return next()
 }
 
 module.exports = loggerMiddleware

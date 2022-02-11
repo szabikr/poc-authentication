@@ -3,7 +3,7 @@ const {
   postTodoHandler,
   putTodoHandler,
   deleteTodoHandler,
-  
+
   getTodosHandler,
   resetTodosHandler,
 } = require('./todos')
@@ -17,9 +17,9 @@ module.exports = {
   postTodoHandler,
   putTodoHandler,
   deleteTodoHandler,
-  
+
   getTodosHandler,
   resetTodosHandler,
-  
+
   completeTodoHandler,
 }
