@@ -12,7 +12,7 @@ const renderTodo = ({ id, content, completed }) => `
 
 const renderTodos = (todos) => {
   if (!todos) {
-    return `No todos are available`
+    return 'No todos are available'
   }
 
   return todos.reduce((view, todo) => `${view}${renderTodo(todo)}`, '')
@@ -20,7 +20,7 @@ const renderTodos = (todos) => {
 
 async function todosPage(req, res) {
   const todos = await readTodos()
-  
+
   return res.send(`
     <h1>Your Todos</h1>
     <form action="/move-to-done">

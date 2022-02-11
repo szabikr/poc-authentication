@@ -1,8 +1,6 @@
 const { MongoClient } = require('mongodb')
 
-const getDbClient = () => {
-  return new MongoClient(process.env.DB_CONNECTION_STRING)
-}
+const getDbClient = () => new MongoClient(process.env.DB_CONNECTION_STRING)
 
 async function createCompletedTodo(completedTodo) {
   const client = getDbClient()
@@ -16,8 +14,7 @@ async function createCompletedTodo(completedTodo) {
     return result.acknowledged
   } catch (err) {
     console.log(err)
-  }
-  finally {
+  } finally {
     await client.close()
     console.log('db connection closed')
   }
