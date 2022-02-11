@@ -1,8 +1,6 @@
 const { MongoClient } = require('mongodb')
 
-const getDbClient = () => {
-  return new MongoClient(process.env.DB_CONNECTION_STRING)
-}
+const getDbClient = () => new MongoClient(process.env.DB_CONNECTION_STRING)
 
 async function readTodo(id) {
   const client = getDbClient()
@@ -17,8 +15,7 @@ async function readTodo(id) {
     return todo
   } catch (err) {
     console.error(err)
-  }
-  finally {
+  } finally {
     await client.close()
     console.log('db connection closed')
   }
@@ -34,15 +31,14 @@ async function readTodos() {
 
     const todos = await collection.find().toArray()
 
-    return todos.map(todo => ({
+    return todos.map((todo) => ({
       id: todo.id,
       content: todo.content,
       completed: todo.completed,
     }))
   } catch (err) {
     console.error(err)
-  }
-  finally {
+  } finally {
     await client.close()
     console.log('db connection closed')
   }
@@ -57,12 +53,11 @@ async function createTodo(todo) {
     const collection = database.collection('todos')
 
     const result = await collection.insertOne(todo)
-    
+
     return result.acknowledged
   } catch (err) {
     console.error(err)
-  }
-  finally {
+  } finally {
     await client.close()
     console.log('db connection closed')
   }
@@ -71,7 +66,7 @@ async function createTodo(todo) {
 async function updateTodo(id, completed) {
   const client = getDbClient()
 
-  try { 
+  try {
     await client.connect()
     const database = client.db('todos-db')
     const collection = database.collection('todos')
@@ -83,8 +78,7 @@ async function updateTodo(id, completed) {
     return result.modifiedCount > 0
   } catch (err) {
     console.error(err)
-  }
-  finally {
+  } finally {
     await client.close()
     console.log('db connection closed')
   }
@@ -103,8 +97,7 @@ async function deleteTodo(id) {
     return result.deletedCount > 0
   } catch (err) {
     console.log(err)
-  }
-  finally {
+  } finally {
     await client.close()
     console.log('db connection closed')
   }
@@ -113,7 +106,7 @@ async function deleteTodo(id) {
 async function resetAllTodos() {
   const client = getDbClient()
 
-  try { 
+  try {
     await client.connect()
     const collection = client.db('todos-db').collection('todos')
 
@@ -124,8 +117,7 @@ async function resetAllTodos() {
     return result.matchedCount > 0
   } catch (err) {
     console.error(err)
-  }
-  finally { 
+  } finally {
     client.close()
     console.log('db connection closed')
   }

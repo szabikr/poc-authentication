@@ -8,8 +8,8 @@ async function moveToDoneAction(req, res) {
   if (!Array.isArray(req.query.todos)) {
     req.query.todos = [req.query.todos]
   }
-  
-  const promises = req.query.todos.map(async id => {
+
+  const promises = req.query.todos.map(async (id) => {
     const completed = true
     await updateTodo(id, completed)
     console.log(`todo item ${id} is moved to done`)
@@ -21,5 +21,5 @@ async function moveToDoneAction(req, res) {
 }
 
 module.exports = {
-  moveToDoneAction
+  moveToDoneAction,
 }
