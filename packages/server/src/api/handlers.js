@@ -8,9 +8,7 @@ const {
   resetTodosHandler,
 } = require('./todos')
 
-const {
-  completeTodoHandler,
-} = require('./complete-todo')
+const { completeTodoHandler } = require('./complete-todo')
 
 module.exports = {
   getTodoHandler,

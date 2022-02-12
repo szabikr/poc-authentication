@@ -1,6 +1,11 @@
 const { v4: uuidv4 } = require('uuid')
 const {
-  readTodo, readTodos, createTodo, updateTodo, deleteTodo, resetAllTodos,
+  readTodo,
+  readTodos,
+  createTodo,
+  updateTodo,
+  deleteTodo,
+  resetAllTodos,
 } = require('../db/todos-collection')
 
 async function getTodoHandler(req, res) {
@@ -51,7 +56,7 @@ async function putTodoHandler(req, res) {
   return res.json({
     ...todo,
     completed,
-  });
+  })
 }
 
 async function deleteTodoHandler(req, res) {
@@ -65,7 +70,7 @@ async function deleteTodoHandler(req, res) {
     return res.status(404).end('Record was not found')
   }
 
-  return res.status(200).end();
+  return res.status(200).end()
 }
 
 async function getTodosHandler(req, res) {
