@@ -21,7 +21,6 @@
   "rules": {
     "semi": "off",
     "no-console": ["error", { "allow": ["warn", "error"] }],
-    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
-    "react/jsx-one-expression-per-line": ["error", { "allow": "single-child" }]
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }]
   }
 }
