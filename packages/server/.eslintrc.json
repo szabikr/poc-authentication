@@ -10,6 +10,17 @@
   "parserOptions": {
     "ecmaVersion": "latest"
   },
+  "overrides": [
+    {
+      "files": [
+        "**/*.spec.js",
+        "**/*.spec.jsx"
+      ],
+      "env": {
+        "jest": true
+      }
+    }
+  ],
   "rules": {
     "semi": "off"
   }
