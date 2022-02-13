@@ -14,7 +14,8 @@
     "prettier": "prettier --write src",
     "prettier:check": "prettier --check src",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --collectCoverageFrom='src/**/*.js'"
   },
   "dependencies": {
     "express": "^4.17.2",
