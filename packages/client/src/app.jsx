@@ -1,14 +1,17 @@
 import React from 'react'
-import Button from '@mui/material/Button'
+import Box from '@mui/material/Box'
 import Header from './components/header'
 import Footer from './components/footer'
+import RegisterForm from './components/register-form'
 
 export default function App() {
   return (
-    <div>
+    <Box sx={{ mt: 8 }}>
       <Header />
-      <Button variant="contained">Login</Button>
+      <Box sx={{ mt: 4, mb: 8 }}>
+        <RegisterForm />
+      </Box>
       <Footer />
-    </div>
+    </Box>
   )
 }

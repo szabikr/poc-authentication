@@ -1,5 +1,10 @@
 import React from 'react'
+import Typography from '@mui/material/Typography'
 
 export default function Header() {
-  return <h1>Move to Done</h1>
+  return (
+    <Typography align="center" variant="h2">
+      Move to Done
+    </Typography>
+  )
 }
