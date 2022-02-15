@@ -1,6 +1,36 @@
 import React, { useState } from 'react'
 import { Stack, TextField, Button, Typography } from '@mui/material'
 
+function validate(email, password, confirmPassword) {
+  let emailError = ''
+  let passwordError = ''
+  let confirmPasswordError = ''
+
+  if (email === '') {
+    emailError = 'Enter your email address'
+  }
+
+  if (password === '') {
+    passwordError = 'Enter your password'
+  }
+
+  if (confirmPassword === '') {
+    confirmPasswordError = 'Confirm your password'
+  }
+
+  if (password !== confirmPassword) {
+    confirmPasswordError = 'Passwords must match'
+  }
+
+  return {
+    hasError:
+      emailError !== '' || passwordError !== '' || confirmPasswordError !== '',
+    emailError,
+    passwordError,
+    confirmPasswordError,
+  }
+}
+
 export default function RegisterForm() {
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
@@ -10,35 +40,20 @@ export default function RegisterForm() {
   })
 
   const handleRegisterOnClick = () => {
-    setEmail({ ...email, error: '' })
-    setPassword({ ...password, error: '' })
-    setConfirmPassword({ ...confirmPassword, error: '' })
+    const validation = validate(
+      email.value,
+      password.value,
+      confirmPassword.value,
+    )
 
-    let hasError = false
-    if (email.value === '') {
-      setEmail({ ...email, error: 'Enter your email address' })
-      hasError = true
-    }
+    setEmail({ ...email, error: validation.emailError })
+    setPassword({ ...password, error: validation.passwordError })
+    setConfirmPassword({
+      ...confirmPassword,
+      error: validation.confirmPasswordError,
+    })
 
-    if (password.value === '') {
-      setPassword({ ...password, error: 'Enter your password' })
-      hasError = true
-    }
-
-    if (confirmPassword.value === '') {
-      setConfirmPassword({ ...confirmPassword, error: 'Confirm your password' })
-      hasError = true
-    }
-
-    if (password.value !== confirmPassword.value) {
-      setConfirmPassword({
-        ...confirmPassword,
-        error: 'Passwords have to match',
-      })
-      hasError = true
-    }
-
-    if (hasError) {
+    if (validation.hasError) {
       return
     }
 
