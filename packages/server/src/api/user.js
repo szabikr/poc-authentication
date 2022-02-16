@@ -31,6 +31,10 @@ async function postUserLogin(req, res) {
 
   const user = await readUser(req.body.username)
 
+  if (!user) {
+    return res.status(400).send('username or password is incorrect')
+  }
+
   const isMatch = bcrypt.compareSync(req.body.password, user.password)
 
   if (!isMatch) {
