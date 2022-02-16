@@ -6,6 +6,12 @@ async function postUserRegister(req, res) {
     return res.status(400).end('Invalid Request Body')
   }
 
+  const usernameExists = await readUser(req.body.email)
+
+  if (usernameExists) {
+    return res.status(200).send(`username: ${req.body.email} already exists`)
+  }
+
   const salt = bcrypt.genSaltSync(10)
   const hashedPassword = bcrypt.hashSync(req.body.password, salt)
 
