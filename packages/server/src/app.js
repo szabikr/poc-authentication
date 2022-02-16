@@ -3,7 +3,7 @@ const express = require('express')
 const loggerMiddleware = require('./logger-middleware')
 const apiHandlers = require('./api/handlers')
 const uiHandlers = require('./ui/handlers')
-const { postUserRegister } = require('./api/user')
+const { postUserRegister, postUserLogin } = require('./api/user')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -13,6 +13,7 @@ app.use(loggerMiddleware)
 app.use(express.static(path.join(__dirname, '../../client/build')))
 
 app.post('/api/user/register', postUserRegister)
+app.post('/api/user/login', postUserLogin)
 
 app.get('/api/todo/:id', apiHandlers.getTodoHandler)
 app.post('/api/todo', apiHandlers.postTodoHandler)

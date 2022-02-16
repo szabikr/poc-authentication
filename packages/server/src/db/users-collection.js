@@ -2,6 +2,26 @@ const { MongoClient } = require('mongodb')
 
 const getDbClient = () => new MongoClient(process.env.DB_CONNECTION_STRING)
 
+async function readUser(username) {
+  const client = getDbClient()
+
+  try {
+    await client.connect()
+    const database = client.db('todos-db')
+    const collection = database.collection('users')
+
+    const result = await collection.findOne({ username })
+
+    return result
+  } catch (err) {
+    console.error(err)
+    return err
+  } finally {
+    await client.close()
+    console.log('db connection closed')
+  }
+}
+
 async function createUser(user) {
   const client = getDbClient()
 
@@ -23,5 +43,6 @@ async function createUser(user) {
 }
 
 module.exports = {
+  readUser,
   createUser,
 }
