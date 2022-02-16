@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs')
 const { createUser } = require('../db/users-collection')
 
 async function postUserRegister(req, res) {
@@ -5,10 +6,13 @@ async function postUserRegister(req, res) {
     return res.status(400).end('Invalid Request Body')
   }
 
+  const salt = bcrypt.genSaltSync(10)
+  const hashedPassword = bcrypt.hashSync(req.body.password, salt)
+
   const user = {
     username: req.body.email,
     email: req.body.email,
-    password: req.body.password,
+    password: hashedPassword,
   }
 
   const success = await createUser(user)
