@@ -3,8 +3,8 @@ import validate from '../validate'
 describe('Register Form Validation', () => {
   it('should not error when values are correct', () => {
     const email = 'my@email.com'
-    const password = 'password'
-    const confirmPassword = 'password'
+    const password = 'Password123!'
+    const confirmPassword = 'Password123!'
 
     const result = validate(email, password, confirmPassword)
 
