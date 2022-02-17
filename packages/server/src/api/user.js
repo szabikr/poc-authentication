@@ -10,7 +10,7 @@ async function postUserRegister(req, res) {
 
   if (usernameExists) {
     return res.status(409).json({
-      message: `username: ${req.body.email} already exists`,
+      message: 'Username already exists',
     })
   }
 
