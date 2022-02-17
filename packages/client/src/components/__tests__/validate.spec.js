@@ -37,4 +37,82 @@ describe('Register Form Validation', () => {
     expect(result.hasError).toBe(true)
     expect(result.confirmPasswordError).toBe('Passwords must match')
   })
+
+  it('should error when password length is less than 8 characters', () => {
+    const email = 'my@email.com'
+    const password = 'Pa55!'
+    const confirmPassword = 'Pa55!'
+
+    const result = validate(email, password, confirmPassword)
+
+    expect(result.hasError).toBe(true)
+    expect(result.passwordError).toBe(
+      'Password must be 8-32 characters with one lowecase, uppercase, number and symbol character',
+    )
+  })
+
+  it('should error when password does not have lowercase characters', () => {
+    const email = 'my@email.com'
+    const password = 'PASSWORD55!'
+    const confirmPassword = 'PASSWROD55!'
+
+    const result = validate(email, password, confirmPassword)
+
+    expect(result.hasError).toBe(true)
+    expect(result.passwordError).toBe(
+      'Password must be 8-32 characters with one lowecase, uppercase, number and symbol character',
+    )
+  })
+
+  it('should error when password does not have upercase characters', () => {
+    const email = 'my@email.com'
+    const password = 'password55!'
+    const confirmPassword = 'password55!'
+
+    const result = validate(email, password, confirmPassword)
+
+    expect(result.hasError).toBe(true)
+    expect(result.passwordError).toBe(
+      'Password must be 8-32 characters with one lowecase, uppercase, number and symbol character',
+    )
+  })
+
+  it('should error when password does not have number characters', () => {
+    const email = 'my@email.com'
+    const password = 'Password!'
+    const confirmPassword = 'Password!'
+
+    const result = validate(email, password, confirmPassword)
+
+    expect(result.hasError).toBe(true)
+    expect(result.passwordError).toBe(
+      'Password must be 8-32 characters with one lowecase, uppercase, number and symbol character',
+    )
+  })
+
+  it('should error when password does not have symbol characters', () => {
+    const email = 'my@email.com'
+    const password = 'Password55'
+    const confirmPassword = 'Password55'
+
+    const result = validate(email, password, confirmPassword)
+
+    expect(result.hasError).toBe(true)
+    expect(result.passwordError).toBe(
+      'Password must be 8-32 characters with one lowecase, uppercase, number and symbol character',
+    )
+  })
+
+  it('should error when password is longer than 32 characters', () => {
+    const email = 'my@email.com'
+    const password = 'Password1!Password1!Password1!123'
+    const confirmPassword = 'Password1!Password1!Password1!123'
+
+    const result = validate(email, password, confirmPassword)
+
+    expect(result.hasError).toBe(true)
+    expect(result.passwordError).toBe(
+      'Password must be 8-32 characters with one lowecase, uppercase, number and symbol character',
+    )
+  })
 })

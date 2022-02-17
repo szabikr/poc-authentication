@@ -35,7 +35,7 @@ export default function validate(email, password, confirmPassword) {
     confirmPasswordError = 'Passwords must match'
   }
 
-  if (!passwordError && !isPasswordComplex(password)) {
+  if (passwordError === '' && !isPasswordComplex(password)) {
     passwordError =
       'Password must be 8-32 characters with one lowecase, uppercase, number and symbol character'
   }
