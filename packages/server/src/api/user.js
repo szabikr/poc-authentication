@@ -9,7 +9,9 @@ async function postUserRegister(req, res) {
   const usernameExists = await readUser(req.body.email)
 
   if (usernameExists) {
-    return res.status(200).send(`username: ${req.body.email} already exists`)
+    return res.status(409).json({
+      message: `username: ${req.body.email} already exists`,
+    })
   }
 
   const salt = bcrypt.genSaltSync(10)
@@ -27,7 +29,7 @@ async function postUserRegister(req, res) {
     return res.status(500).end('Internal server error')
   }
 
-  return res.status(200).send(`user: ${req.body.email} has been registered`)
+  return res.status(201)
 }
 
 async function postUserLogin(req, res) {

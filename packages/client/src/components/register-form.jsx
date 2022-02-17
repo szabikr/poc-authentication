@@ -43,9 +43,16 @@ export default function RegisterForm() {
         password: password.value,
       }),
     })
-      .then((response) =>
-        console.log(`response is: ${JSON.stringify(response)}`),
-      )
+      .then((response) => {
+        console.log(response.status)
+        if (response.status === 409) {
+          response
+            .json()
+            .then((error) => setEmail({ ...email, error: error.message }))
+        }
+        return response.json()
+      })
+      .then((data) => console.log(`response is: ${JSON.stringify(data)}`))
       .catch((error) => console.log(`error is: ${JSON.stringify(error)}`))
   }
 
