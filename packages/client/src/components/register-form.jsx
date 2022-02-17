@@ -32,6 +32,21 @@ export default function RegisterForm() {
     console.log(`email: ${email.value}`)
     console.log(`password: ${password.value}`)
     console.log(`confirmPassword: ${confirmPassword.value}`)
+
+    fetch('/api/user/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }),
+    })
+      .then((response) =>
+        console.log(`response is: ${JSON.stringify(response)}`),
+      )
+      .catch((error) => console.log(`error is: ${JSON.stringify(error)}`))
   }
 
   return (
