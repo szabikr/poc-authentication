@@ -28,11 +28,6 @@ export default function RegisterForm() {
       return
     }
 
-    console.log('we are ready to register with')
-    console.log(`email: ${email.value}`)
-    console.log(`password: ${password.value}`)
-    console.log(`confirmPassword: ${confirmPassword.value}`)
-
     fetch('/api/user/register', {
       method: 'POST',
       headers: {
@@ -56,9 +51,18 @@ export default function RegisterForm() {
             setPassword({ ...password, error: error.passwordError ?? '' })
           })
         }
-        return response.json()
+        if (response.status === 201) {
+          response.json().then((data) => {
+            console.log('You have created your account successfuly with:')
+            console.log(`email: ${data.email}`)
+            console.log(`username: ${data.username}`)
+          })
+
+          setEmail({ value: '', error: '' })
+          setPassword({ value: '', error: '' })
+          setConfirmPassword({ value: '', error: '' })
+        }
       })
-      .then((data) => console.log(`response is: ${JSON.stringify(data)}`))
       .catch((error) => console.log(`error is: ${JSON.stringify(error)}`))
   }
 

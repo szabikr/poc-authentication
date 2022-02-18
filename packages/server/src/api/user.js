@@ -35,7 +35,10 @@ async function postUserRegister(req, res) {
     return res.status(500).end('Internal server error')
   }
 
-  return res.status(201)
+  return res.status(201).json({
+    email: user.email,
+    username: user.username,
+  })
 }
 
 async function postUserLogin(req, res) {
