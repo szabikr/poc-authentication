@@ -14,6 +14,10 @@ function isPasswordComplex(password) {
   )
 }
 
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
 export default function validate(email, password, confirmPassword) {
   let emailError = ''
   let passwordError = ''
@@ -21,6 +25,10 @@ export default function validate(email, password, confirmPassword) {
 
   if (email === '') {
     emailError = 'Enter your email address'
+  }
+
+  if (emailError === '' && !isValidEmail(email)) {
+    emailError = 'Email must be valid'
   }
 
   if (password === '') {

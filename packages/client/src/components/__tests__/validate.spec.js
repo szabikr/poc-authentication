@@ -27,6 +27,32 @@ describe('Register Form Validation', () => {
     expect(result.confirmPasswordError).toBe('Confirm your password')
   })
 
+  it('should error when email address is invalid', () => {
+    const password = 'Password123!'
+    const confirmPassword = 'Password123!'
+
+    let result = null
+    result = validate('invalid email', password, confirmPassword)
+    expect(result.hasError).toBe(true)
+    expect(result.emailError).toBe('Email must be valid')
+
+    result = validate('my@', password, confirmPassword)
+    expect(result.hasError).toBe(true)
+    expect(result.emailError).toBe('Email must be valid')
+
+    result = validate('my@email', password, confirmPassword)
+    expect(result.hasError).toBe(true)
+    expect(result.emailError).toBe('Email must be valid')
+
+    result = validate('my@email.', password, confirmPassword)
+    expect(result.hasError).toBe(true)
+    expect(result.emailError).toBe('Email must be valid')
+
+    result = validate('my@email@again.com', password, confirmPassword)
+    expect(result.hasError).toBe(true)
+    expect(result.emailError).toBe('Email must be valid')
+  })
+
   it('should error when password and confirmPassword do not match', () => {
     const email = 'my@email.com'
     const password = 'password'
