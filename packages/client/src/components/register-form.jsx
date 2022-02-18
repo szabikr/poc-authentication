@@ -50,6 +50,12 @@ export default function RegisterForm() {
             .json()
             .then((error) => setEmail({ ...email, error: error.message }))
         }
+        if (response.status === 422) {
+          response.json().then((error) => {
+            setEmail({ ...email, error: error.emailError ?? '' })
+            setPassword({ ...password, error: error.passwordError ?? '' })
+          })
+        }
         return response.json()
       })
       .then((data) => console.log(`response is: ${JSON.stringify(data)}`))
