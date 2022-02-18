@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const { createUser, readUser } = require('../db/users-collection')
-const { isPasswordComplex } = require('./validation')
+const { validate } = require('./validation')
 
 async function postUserRegister(req, res) {
   if (!req.body || !req.body.email || !req.body.password) {
@@ -15,11 +15,9 @@ async function postUserRegister(req, res) {
     })
   }
 
-  if (!isPasswordComplex(req.body.password)) {
-    return res.status(422).json({
-      passwordError:
-        'Password must be 8-32 characters with one lowecase, uppercase, number and symbol character',
-    })
+  const validation = validate(req.body.email, req.body.password)
+  if (validation.hasError) {
+    return res.status(422).json({ ...validation })
   }
 
   const salt = bcrypt.genSaltSync(10)
