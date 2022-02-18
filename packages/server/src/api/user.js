@@ -1,16 +1,24 @@
 const bcrypt = require('bcryptjs')
 const { createUser, readUser } = require('../db/users-collection')
+const { isPasswordComplex } = require('./validation')
 
 async function postUserRegister(req, res) {
   if (!req.body || !req.body.email || !req.body.password) {
     return res.status(400).end('Invalid Request Body')
   }
 
-  const usernameExists = await readUser(req.body.email)
+  const emailExists = await readUser(req.body.email)
 
-  if (usernameExists) {
+  if (emailExists) {
     return res.status(409).json({
-      message: 'Username already exists',
+      message: 'Email already exists',
+    })
+  }
+
+  if (!isPasswordComplex(req.body.password)) {
+    return res.status(422).json({
+      passwordError:
+        'Password must be 8-32 characters with one lowecase, uppercase, number and symbol character',
     })
   }
 

@@ -4,24 +4,23 @@
     "commonjs": true,
     "es2021": true
   },
-  "extends": [
-    "airbnb-base"
-  ],
+  "extends": ["airbnb-base"],
   "parserOptions": {
     "ecmaVersion": "latest"
   },
   "overrides": [
     {
-      "files": [
-        "**/*.spec.js",
-        "**/*.spec.jsx"
-      ],
+      "files": ["**/*.spec.js", "**/*.spec.jsx"],
       "env": {
         "jest": true
       }
     }
   ],
   "rules": {
-    "semi": "off"
+    "semi": "off",
+    "operator-linebreak": [
+      "after",
+      { "overrides": { "?": "before", ":": "before" } }
+    ]
   }
 }
