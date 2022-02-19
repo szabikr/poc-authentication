@@ -23,7 +23,7 @@ export default function PasswordField(props) {
               onMouseDown={(event) => event.preventDefault()}
               edge="end"
             >
-              {showPassword ? <Visibility /> : <VisibilityOff />}
+              {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
         ),
