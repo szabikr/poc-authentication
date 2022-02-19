@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Stack, TextField, Button, Typography } from '@mui/material'
+import { Stack, TextField, Button, Typography, Alert } from '@mui/material'
 import validate from './validate'
 import PasswordField from './password-field'
 
@@ -109,6 +109,9 @@ export default function RegisterForm() {
         error={confirmPassword.error !== ''}
         helperText={confirmPassword.error}
       />
+      <Alert severity="info">
+        If you can, do not reuse any of your existing passwords
+      </Alert>
       <Button variant="contained" onClick={handleRegisterOnClick}>
         Register
       </Button>
