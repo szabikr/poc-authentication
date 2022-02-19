@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Stack, TextField, Button, Typography } from '@mui/material'
 import validate from './validate'
+import PasswordField from './password-field'
 
 export default function RegisterForm() {
   const [email, setEmail] = useState({ value: '', error: '' })
@@ -81,7 +82,7 @@ export default function RegisterForm() {
         error={email.error !== ''}
         helperText={email.error}
       />
-      <TextField
+      <PasswordField
         id="password"
         label="Password"
         variant="outlined"
@@ -93,7 +94,7 @@ export default function RegisterForm() {
         error={password.error !== ''}
         helperText={password.error}
       />
-      <TextField
+      <PasswordField
         id="confirm-password"
         label="Confirm password"
         variant="outlined"
