@@ -8,6 +8,7 @@
   "license": "MIT",
   "scripts": {
     "build": "cp -a public/. build && webpack",
+    "build:watch": "cp -a public/. build && webpack --watch",
     "dev": "webpack serve",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
