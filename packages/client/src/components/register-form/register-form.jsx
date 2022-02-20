@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Stack, TextField, Button, Typography, Alert } from '@mui/material'
 import validate from './validate'
-import PasswordField from './password-field'
+import PasswordField from '../password-field'
 
 export default function RegisterForm() {
   const [email, setEmail] = useState({ value: '', error: '' })
