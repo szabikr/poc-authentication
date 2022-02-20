@@ -64,7 +64,9 @@ export default function RegisterForm() {
           setConfirmPassword({ value: '', error: '' })
         }
       })
-      .catch((error) => console.log(`error is: ${JSON.stringify(error)}`))
+      .catch((error) =>
+        console.log(`Network Error happened: ${JSON.stringify(error)}`),
+      )
   }
 
   return (
