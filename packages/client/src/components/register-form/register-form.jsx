@@ -21,7 +21,7 @@ export default function RegisterForm() {
   const [pageError, setPageError] = useState({ open: false, message: '' })
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleRegisterOnClick = () => {
+  const handleRegisterOnClick = async () => {
     const validation = validate(
       email.value,
       password.value,
@@ -39,58 +39,55 @@ export default function RegisterForm() {
       return
     }
 
-    fetch('/api/user/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email.value,
-        password: password.value,
-      }),
-    })
-      .then((response) => {
-        console.log(response.status)
-        setIsLoading(false)
-
-        if (response.status === 500) {
-          response
-            .json()
-            .then((error) =>
-              setPageError({ open: true, message: error.message }),
-            )
-        }
-
-        if (response.status === 422) {
-          response.json().then((error) => {
-            setEmail({ ...email, error: error.emailError ?? '' })
-            setPassword({ ...password, error: error.passwordError ?? '' })
-          })
-        }
-
-        if (response.status === 409) {
-          response
-            .json()
-            .then((error) => setEmail({ ...email, error: error.message }))
-        }
-
-        if (response.status === 201) {
-          response.json().then((data) => {
-            console.log('You have created your account successfuly with:')
-            console.log(`email: ${data.email}`)
-            console.log(`username: ${data.username}`)
-          })
-
-          setEmail({ value: '', error: '' })
-          setPassword({ value: '', error: '' })
-          setConfirmPassword({ value: '', error: '' })
-        }
-      })
-      .catch((error) =>
-        console.log(`Network Error happened: ${JSON.stringify(error)}`),
-      )
-
     setIsLoading(true)
+
+    let response
+    try {
+      response = await fetch('/api/user/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email.value, password: password.value }),
+      })
+    } catch (error) {
+      setPageError({
+        open: true,
+        message: `Network error: ${JSON.stringify(error)}`,
+      })
+    }
+
+    if (response.status === 500) {
+      const error = await response.json()
+      setPageError({
+        open: true,
+        message: error.message,
+      })
+    }
+
+    if (response.status === 422) {
+      const error = await response.json()
+      setEmail({ ...email, error: error.emailError ?? '' })
+      setPassword({ ...password, error: error.passwordError ?? '' })
+    }
+
+    if (response.status === 409) {
+      const error = await response.json()
+      setEmail({ ...email, error: error.message })
+    }
+
+    if (response.status === 201) {
+      const data = await response.json()
+      console.log('You have created your account successfuly with:')
+      console.log(`email: ${data.email}`)
+      console.log(`username: ${data.username}`)
+
+      setEmail({ value: '', error: '' })
+      setPassword({ value: '', error: '' })
+      setConfirmPassword({ value: '', error: '' })
+    }
+
+    setIsLoading(false)
   }
 
   return (
@@ -148,7 +145,7 @@ export default function RegisterForm() {
 
       <Snackbar
         open={pageError.open}
-        autoHideDuration={6000}
+        autoHideDuration={10000}
         onClose={() => setPageError({ open: false })}
       >
         <Alert
