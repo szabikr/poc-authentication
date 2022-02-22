@@ -10,12 +10,16 @@ async function readUser(username) {
     const database = client.db('todos-db')
     const collection = database.collection('users')
 
-    const result = await collection.findOne({ username })
+    const document = await collection.findOne({ username })
 
-    return result
+    return {
+      document,
+    }
   } catch (err) {
     console.error(err)
-    return err
+    return {
+      hasError: true,
+    }
   } finally {
     await client.close()
     console.log('db connection closed')

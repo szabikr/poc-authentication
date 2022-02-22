@@ -7,8 +7,15 @@ async function postUserRegister(req, res) {
     return res.status(400).end('Invalid Request Body')
   }
 
-  const emailExists = await readUser(req.body.email)
+  const result = await readUser(req.body.email)
 
+  if (result.hasError) {
+    return res
+      .status(500)
+      .json({ message: 'Internal server error, try again later' })
+  }
+
+  const emailExists = result.document
   if (emailExists) {
     return res.status(409).json({
       message: 'Email already exists',
@@ -46,8 +53,15 @@ async function postUserLogin(req, res) {
     return res.status(400).end('Invalid Request Body')
   }
 
-  const user = await readUser(req.body.username)
+  const result = await readUser(req.body.username)
 
+  if (result.hasError) {
+    return res
+      .status(500)
+      .json({ message: 'Internal server error, try again later' })
+  }
+
+  const user = result.document
   if (!user) {
     return res.status(400).send('username or password is incorrect')
   }

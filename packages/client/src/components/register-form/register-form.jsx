@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
-import { Stack, TextField, Button, Typography, Alert } from '@mui/material'
+import {
+  Stack,
+  TextField,
+  Button,
+  Typography,
+  Alert,
+  Snackbar,
+  CircularProgress,
+} from '@mui/material'
 import validate from './validate'
 import PasswordField from '../password-field'
 
@@ -10,6 +18,8 @@ export default function RegisterForm() {
     value: '',
     error: '',
   })
+  const [pageError, setPageError] = useState({ open: false, message: '' })
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleRegisterOnClick = () => {
     const validation = validate(
@@ -41,17 +51,29 @@ export default function RegisterForm() {
     })
       .then((response) => {
         console.log(response.status)
-        if (response.status === 409) {
+        setIsLoading(false)
+
+        if (response.status === 500) {
           response
             .json()
-            .then((error) => setEmail({ ...email, error: error.message }))
+            .then((error) =>
+              setPageError({ open: true, message: error.message }),
+            )
         }
+
         if (response.status === 422) {
           response.json().then((error) => {
             setEmail({ ...email, error: error.emailError ?? '' })
             setPassword({ ...password, error: error.passwordError ?? '' })
           })
         }
+
+        if (response.status === 409) {
+          response
+            .json()
+            .then((error) => setEmail({ ...email, error: error.message }))
+        }
+
         if (response.status === 201) {
           response.json().then((data) => {
             console.log('You have created your account successfuly with:')
@@ -67,6 +89,8 @@ export default function RegisterForm() {
       .catch((error) =>
         console.log(`Network Error happened: ${JSON.stringify(error)}`),
       )
+
+    setIsLoading(true)
   }
 
   return (
@@ -114,9 +138,27 @@ export default function RegisterForm() {
       <Alert severity="info">
         If you can, do not reuse any of your existing passwords
       </Alert>
-      <Button variant="contained" onClick={handleRegisterOnClick}>
-        Register
+      <Button
+        variant="contained"
+        disabled={isLoading}
+        onClick={handleRegisterOnClick}
+      >
+        {isLoading ? <CircularProgress size={24} /> : 'Register'}
       </Button>
+
+      <Snackbar
+        open={pageError.open}
+        autoHideDuration={6000}
+        onClose={() => setPageError({ open: false })}
+      >
+        <Alert
+          variant="filled"
+          severity="error"
+          onClose={() => setPageError({ open: false })}
+        >
+          {pageError.message}
+        </Alert>
+      </Snackbar>
     </Stack>
   )
 }
