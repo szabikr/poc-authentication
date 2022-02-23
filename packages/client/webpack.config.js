@@ -1,5 +1,5 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   mode: process.env.NODE_ENV || 'development',
@@ -13,11 +13,8 @@ module.exports = {
       },
       {
         test: /\.(sa|sc|c)ss$/i,
-        use: [
-          'style-loader',
-          'css-loader',
-        ],
-      }
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   resolve: {
@@ -41,4 +38,8 @@ module.exports = {
     hot: true,
     open: true,
   },
-};
+  watchOptions: {
+    aggregateTimeout: 1000,
+    ignored: /node_modules/,
+  },
+}
