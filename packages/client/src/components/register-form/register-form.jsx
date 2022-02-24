@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Stack,
   TextField,
@@ -12,6 +13,7 @@ import validate from './validate'
 import PasswordField from '../password-field'
 
 export default function RegisterForm() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
   const [confirmPassword, setConfirmPassword] = useState({
@@ -88,6 +90,8 @@ export default function RegisterForm() {
     }
 
     setIsLoading(false)
+
+    navigate('/register/success')
   }
 
   return (
