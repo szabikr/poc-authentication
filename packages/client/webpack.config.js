@@ -29,11 +29,13 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build'),
+    publicPath: '/',
   },
   devServer: {
     static: {
       directory: path.join(__dirname, 'public'),
     },
+    historyApiFallback: true,
     port: 8080,
     hot: true,
     open: true,
