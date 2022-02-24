@@ -132,6 +132,12 @@ export default function RegisterForm() {
             value: event.target.value,
           })
         }
+        onKeyUp={(event) => {
+          const enterKeyCode = 13
+          if (event.keyCode === enterKeyCode) {
+            handleRegisterOnClick()
+          }
+        }}
         error={confirmPassword.error !== ''}
         helperText={confirmPassword.error}
       />
