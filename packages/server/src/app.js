@@ -28,8 +28,20 @@ app.post('/api/complete-todo/:id', apiHandlers.completeTodoHandler)
 app.get('/todos', uiHandlers.todosPage)
 app.get('/move-to-done', uiHandlers.moveToDoneAction)
 
+function getPathToClient() {
+  return path.join(__dirname, '../../client/build/index.html')
+}
+
+app.get('/register', (req, res) => {
+  res.sendFile(getPathToClient())
+})
+
+app.get('/login', (req, res) => {
+  res.sendFile(getPathToClient())
+})
+
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../client/build/index.html'))
+  res.sendFile(getPathToClient())
 })
 
 app.listen(port, () => {
