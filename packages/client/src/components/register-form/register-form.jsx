@@ -80,18 +80,17 @@ export default function RegisterForm() {
 
     if (response.status === 201) {
       const data = await response.json()
-      console.log('You have created your account successfuly with:')
-      console.log(`email: ${data.email}`)
-      console.log(`username: ${data.username}`)
 
       setEmail({ value: '', error: '' })
       setPassword({ value: '', error: '' })
       setConfirmPassword({ value: '', error: '' })
+
+      navigate('/register/success', {
+        state: { email: data.email, username: data.username },
+      })
     }
 
     setIsLoading(false)
-
-    navigate('/register/success')
   }
 
   return (
