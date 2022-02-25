@@ -2,10 +2,8 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import App from './app'
 import Welcome from './components/welcome'
-import RegisterForm from './components/register-form'
-import RegisterSuccess from './components/register-success'
-import LoginForm from './components/login-form'
-import LoginSuccess from './components/login-success'
+import { RegisterForm, RegisterSuccess } from './components/register'
+import { LoginForm, LoginSuccess } from './components/login'
 
 export default function AppRouter() {
   return (
