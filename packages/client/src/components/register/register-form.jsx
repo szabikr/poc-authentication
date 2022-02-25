@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Stack,
   TextField,
@@ -8,6 +8,7 @@ import {
   Alert,
   Snackbar,
   CircularProgress,
+  Link as MuiLink,
 } from '@mui/material'
 import validate from './validate'
 import PasswordField from '../password-field'
@@ -151,6 +152,13 @@ export default function RegisterForm() {
       >
         {isLoading ? <CircularProgress size={24} /> : 'Register'}
       </Button>
+
+      <Typography align="center" variant="subtitle1">
+        Already have an account?{' '}
+        <Link to="/login" style={{ textDecoration: 'none' }}>
+          <MuiLink underline="hover">Login</MuiLink>
+        </Link>
+      </Typography>
 
       <Snackbar
         open={pageError.open}
