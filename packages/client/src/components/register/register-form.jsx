@@ -4,6 +4,7 @@ import {
   Stack,
   TextField,
   Button,
+  Box,
   Typography,
   Alert,
   Snackbar,
@@ -96,9 +97,11 @@ export default function RegisterForm() {
 
   return (
     <Stack spacing={2}>
-      <Typography align="center" variant="subtitle1">
-        Create your account
-      </Typography>
+      <Box sx={{ mb: 4 }}>
+        <Typography align="center" variant="h4">
+          Create your account
+        </Typography>
+      </Box>
       <TextField
         id="email"
         label="Email"
@@ -155,7 +158,7 @@ export default function RegisterForm() {
 
       <Typography align="center" variant="subtitle1">
         Already have an account?{' '}
-        <Link to="/login" style={{ textDecoration: 'none' }}>
+        <Link to="/auth/login" style={{ textDecoration: 'none' }}>
           <MuiLink underline="hover">Login</MuiLink>
         </Link>
       </Typography>

@@ -7,8 +7,8 @@ export default function RegisterSuccess() {
   return (
     <>
       <h1>Registration was successful</h1>
-      <h2>Your Email: {state.email}</h2>
-      <h2>Your Username: {state.username}</h2>
+      <h2>Your Email: {state?.email}</h2>
+      <h2>Your Username: {state?.username}</h2>
     </>
   )
 }

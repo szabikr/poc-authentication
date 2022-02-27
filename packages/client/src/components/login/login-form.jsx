@@ -8,7 +8,7 @@ export default function LoginForm() {
       <h1>Login Form</h1>
       <Typography align="center" variant="subtitle1">
         Don&apos;t have an account?{' '}
-        <Link to="/register" style={{ textDecoration: 'none' }}>
+        <Link to="/auth/register" style={{ textDecoration: 'none' }}>
           <MuiLink underline="hover">Register</MuiLink>
         </Link>
       </Typography>
