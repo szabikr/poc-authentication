@@ -32,11 +32,11 @@ function getPathToClient() {
   return path.join(__dirname, '../../client/build/index.html')
 }
 
-app.get('/register', (req, res) => {
+app.get('/auth/register', (req, res) => {
   res.sendFile(getPathToClient())
 })
 
-app.get('/login', (req, res) => {
+app.get('/auth/login', (req, res) => {
   res.sendFile(getPathToClient())
 })
 
