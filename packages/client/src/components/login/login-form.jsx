@@ -80,7 +80,7 @@ export default function LoginForm() {
       setPassword({ value: '', error: '' })
 
       navigate('/auth/login/success', {
-        state: { username: data.username },
+        state: { username: data.username, authToken: data.authToken },
       })
     }
   }

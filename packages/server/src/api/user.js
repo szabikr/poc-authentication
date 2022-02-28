@@ -1,4 +1,6 @@
+const { v4: uuidv4 } = require('uuid')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 const { createUser, readUser } = require('../db/users-collection')
 const { validateRegister, validateLogin } = require('./validation')
 
@@ -31,6 +33,7 @@ async function postUserRegister(req, res) {
   const hashedPassword = await bcrypt.hash(req.body.password, salt)
 
   const user = {
+    id: uuidv4(),
     username: req.body.email,
     email: req.body.email,
     password: hashedPassword,
@@ -85,7 +88,12 @@ async function postUserLogin(req, res) {
     })
   }
 
-  return res.status(200).json({ username: user.username })
+  const authToken = jwt.sign({ id: user.id }, process.env.AUTH_TOKEN_SECRET)
+
+  return res
+    .header('auth-token', authToken)
+    .status(200)
+    .json({ username: user.username, authToken })
 }
 
 module.exports = {
