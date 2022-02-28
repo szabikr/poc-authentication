@@ -104,7 +104,7 @@ export default function RegisterForm() {
       </Box>
       <TextField
         id="email"
-        label="Email"
+        label="Email address"
         variant="outlined"
         type="email"
         value={email.value}

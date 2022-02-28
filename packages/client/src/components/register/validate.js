@@ -18,7 +18,7 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
-export default function validate(email, password, confirmPassword) {
+function validate(email, password, confirmPassword) {
   let emailError = ''
   let passwordError = ''
   let confirmPasswordError = ''
@@ -28,7 +28,7 @@ export default function validate(email, password, confirmPassword) {
   }
 
   if (emailError === '' && !isValidEmail(email)) {
-    emailError = 'Email must be valid'
+    emailError = 'Email address must be valid'
   }
 
   if (password === '') {
@@ -56,3 +56,5 @@ export default function validate(email, password, confirmPassword) {
     confirmPasswordError,
   }
 }
+
+export default validate

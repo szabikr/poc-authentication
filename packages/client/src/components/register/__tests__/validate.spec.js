@@ -34,23 +34,23 @@ describe('Register Form Validation', () => {
     let result = null
     result = validate('invalid email', password, confirmPassword)
     expect(result.hasError).toBe(true)
-    expect(result.emailError).toBe('Email must be valid')
+    expect(result.emailError).toBe('Email address must be valid')
 
     result = validate('my@', password, confirmPassword)
     expect(result.hasError).toBe(true)
-    expect(result.emailError).toBe('Email must be valid')
+    expect(result.emailError).toBe('Email address must be valid')
 
     result = validate('my@email', password, confirmPassword)
     expect(result.hasError).toBe(true)
-    expect(result.emailError).toBe('Email must be valid')
+    expect(result.emailError).toBe('Email address must be valid')
 
     result = validate('my@email.', password, confirmPassword)
     expect(result.hasError).toBe(true)
-    expect(result.emailError).toBe('Email must be valid')
+    expect(result.emailError).toBe('Email address must be valid')
 
     result = validate('my@email@again.com', password, confirmPassword)
     expect(result.hasError).toBe(true)
-    expect(result.emailError).toBe('Email must be valid')
+    expect(result.emailError).toBe('Email address must be valid')
   })
 
   it('should error when password and confirmPassword do not match', () => {

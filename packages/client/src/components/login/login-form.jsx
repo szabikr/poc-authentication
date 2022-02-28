@@ -11,6 +11,7 @@ import {
   Alert,
   Link as MuiLink,
 } from '@mui/material'
+import validate from './validate'
 import PasswordField from '../password-field'
 
 export default function LoginForm() {
@@ -20,6 +21,14 @@ export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
 
   const handleLoginOnClick = () => {
+    const validation = validate(email.value, password.value)
+    setEmail({ ...email, error: validation.emailError })
+    setPassword({ ...password, error: validation.passwordError })
+
+    if (validation.hasError) {
+      return
+    }
+
     setIsLoading(true)
 
     console.log('Login attempt is happening with:')
@@ -39,7 +48,7 @@ export default function LoginForm() {
 
       <TextField
         id="email"
-        label="Email"
+        label="Email address"
         variant="outlined"
         type="email"
         value={email.value}
