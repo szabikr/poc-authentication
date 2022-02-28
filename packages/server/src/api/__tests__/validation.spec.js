@@ -1,4 +1,9 @@
-const { isEmailValid, isPasswordComplex, validate } = require('../validation')
+const {
+  isEmailValid,
+  isPasswordComplex,
+  validateRegister,
+  validateLogin,
+} = require('../validation')
 
 describe('Validation', () => {
   describe('isEmailValid', () => {
@@ -59,11 +64,11 @@ describe('Validation', () => {
     })
   })
 
-  describe('validate', () => {
+  describe('validateRegister', () => {
     it('should have no error when inputs are correct', () => {
       const email = 'my@email.com'
       const password = 'Password123!'
-      const result = validate(email, password)
+      const result = validateRegister(email, password)
       expect(result.hasError).toBe(false)
       expect(result.emailError).toBe('')
       expect(result.passwordError).toBe('')
@@ -72,12 +77,40 @@ describe('Validation', () => {
     it('should have error when inputs are incorrect', () => {
       const email = 'invalid email'
       const password = 'invalid password'
-      const result = validate(email, password)
+      const result = validateRegister(email, password)
       expect(result.hasError).toBe(true)
-      expect(result.emailError).toBe('Email must be valid')
+      expect(result.emailError).toBe('Email address must be valid')
       expect(result.passwordError).toBe(
         'Password must be 8-32 characters with one lowecase, uppercase, number and symbol character',
       )
+    })
+  })
+
+  describe('validateLogin', () => {
+    it('should have no error when inputs are correct', () => {
+      const email = 'my@email.com'
+      const password = 'Password123!'
+      const result = validateLogin(email, password)
+      expect(result.hasError).toBe(false)
+      expect(result.emailError).toBe('')
+      expect(result.passwordError).toBe('')
+    })
+
+    it('should have error when inputs are empty', () => {
+      const email = ''
+      const password = ''
+      const result = validateLogin(email, password)
+      expect(result.hasError).toBe(true)
+      expect(result.emailError).toBe('Enter your email address')
+      expect(result.passwordError).toBe('Enter your password')
+    })
+
+    it('should have error when email address is invalid', () => {
+      const email = 'invalid email address'
+      const password = 'Password123!'
+      const result = validateLogin(email, password)
+      expect(result.hasError).toBe(true)
+      expect(result.emailError).toBe('Email address must be valid')
     })
   })
 })

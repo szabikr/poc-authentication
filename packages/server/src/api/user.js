@@ -1,10 +1,15 @@
 const bcrypt = require('bcryptjs')
 const { createUser, readUser } = require('../db/users-collection')
-const { validate } = require('./validation')
+const { validateRegister, validateLogin } = require('./validation')
 
 async function postUserRegister(req, res) {
   if (!req.body || !req.body.email || !req.body.password) {
     return res.status(400).end('Invalid Request Body')
+  }
+
+  const validation = validateRegister(req.body.email, req.body.password)
+  if (validation.hasError) {
+    return res.status(422).json({ ...validation })
   }
 
   const result = await readUser(req.body.email)
@@ -18,17 +23,12 @@ async function postUserRegister(req, res) {
   const emailExists = result.document
   if (emailExists) {
     return res.status(409).json({
-      message: 'Email already exists',
+      message: 'Email address already exists',
     })
   }
 
-  const validation = validate(req.body.email, req.body.password)
-  if (validation.hasError) {
-    return res.status(422).json({ ...validation })
-  }
-
-  const salt = bcrypt.genSaltSync(10)
-  const hashedPassword = bcrypt.hashSync(req.body.password, salt)
+  const salt = await bcrypt.genSalt(10)
+  const hashedPassword = await bcrypt.hash(req.body.password, salt)
 
   const user = {
     username: req.body.email,
@@ -39,7 +39,9 @@ async function postUserRegister(req, res) {
   const success = await createUser(user)
 
   if (!success) {
-    return res.status(500).end('Internal server error')
+    return res
+      .status(500)
+      .json({ message: 'Internal server error, try again later' })
   }
 
   return res.status(201).json({
@@ -49,11 +51,16 @@ async function postUserRegister(req, res) {
 }
 
 async function postUserLogin(req, res) {
-  if (!req.body || !req.body.username || !req.body.password) {
+  if (!req.body || !req.body.email || !req.body.password) {
     return res.status(400).end('Invalid Request Body')
   }
 
-  const result = await readUser(req.body.username)
+  const validation = validateLogin(req.body.email, req.body.password)
+  if (validation.hasError) {
+    return res.status(422).json({ ...validation })
+  }
+
+  const result = await readUser(req.body.email)
 
   if (result.hasError) {
     return res
@@ -63,20 +70,22 @@ async function postUserLogin(req, res) {
 
   const user = result.document
   if (!user) {
-    return res.status(400).send('username or password is incorrect')
+    return res.status(200).json({
+      hasError: true,
+      errorMessage: 'Username or password is incorrect',
+    })
   }
 
-  const isMatch = bcrypt.compareSync(req.body.password, user.password)
+  const isMatch = await bcrypt.compare(req.body.password, user.password)
 
   if (!isMatch) {
-    return res.status(400).send('username or password is incorrect')
+    return res.status(200).json({
+      hasError: true,
+      errorMessage: 'Username or password is incorrect',
+    })
   }
 
-  return res
-    .status(200)
-    .send(
-      `user: ${req.body.username} logged in successfuly and a auth token will be provided`,
-    )
+  return res.status(200).json({ username: user.username })
 }
 
 module.exports = {

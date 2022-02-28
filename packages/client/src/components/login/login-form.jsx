@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Stack,
   Box,
@@ -15,15 +15,19 @@ import validate from './validate'
 import PasswordField from '../password-field'
 
 export default function LoginForm() {
+  const navigate = useNavigate()
+
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
   const [pageError, setPageError] = useState({ open: false, message: '' })
+  const [loginError, setLoginError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleLoginOnClick = () => {
+  const handleLoginOnClick = async () => {
     const validation = validate(email.value, password.value)
     setEmail({ ...email, error: validation.emailError })
     setPassword({ ...password, error: validation.passwordError })
+    setLoginError('')
 
     if (validation.hasError) {
       return
@@ -31,11 +35,54 @@ export default function LoginForm() {
 
     setIsLoading(true)
 
-    console.log('Login attempt is happening with:')
-    console.log(`email: ${email.value}`)
-    console.log(`password: ${password.value}`)
+    let response
+    try {
+      response = await fetch('/api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email.value, password: password.value }),
+      })
+    } catch (error) {
+      setPageError({
+        open: true,
+        message: `Network error: ${JSON.stringify(error)}`,
+      })
+      return
+    } finally {
+      setIsLoading(false)
+    }
 
-    setIsLoading(false)
+    if (response.status === 500) {
+      const error = await response.json()
+      setPageError({
+        open: true,
+        message: error.message,
+      })
+    }
+
+    if (response.status === 422) {
+      const error = await response.json()
+      setEmail({ ...email, error: error.emailError ?? '' })
+      setPassword({ ...password, error: error.passwordError ?? '' })
+    }
+
+    if (response.status === 200) {
+      const data = await response.json()
+
+      if (data.hasError) {
+        setLoginError(data.errorMessage)
+        return
+      }
+
+      setEmail({ value: '', error: '' })
+      setPassword({ value: '', error: '' })
+
+      navigate('/auth/login/success', {
+        state: { username: data.username },
+      })
+    }
   }
 
   return (
@@ -65,9 +112,22 @@ export default function LoginForm() {
         onChange={(event) =>
           setPassword({ ...password, value: event.target.value })
         }
+        onKeyUp={(event) => {
+          const enterKeyCode = 13
+          if (event.keyCode === enterKeyCode) {
+            handleLoginOnClick()
+          }
+        }}
         error={password.error !== ''}
         helperText={password.error}
       />
+
+      {loginError !== '' && (
+        <Alert variant="outlined" severity="error">
+          {loginError}
+        </Alert>
+      )}
+
       <Button
         variant="contained"
         disabled={isLoading}

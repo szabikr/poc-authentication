@@ -19,6 +19,7 @@
   "rules": {
     "semi": "off",
     "operator-linebreak": [
+      "error",
       "after",
       { "overrides": { "?": "before", ":": "before" } }
     ]

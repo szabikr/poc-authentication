@@ -59,6 +59,9 @@ export default function RegisterForm() {
         open: true,
         message: `Network error: ${JSON.stringify(error)}`,
       })
+      return
+    } finally {
+      setIsLoading(false)
     }
 
     if (response.status === 500) {
@@ -87,12 +90,10 @@ export default function RegisterForm() {
       setPassword({ value: '', error: '' })
       setConfirmPassword({ value: '', error: '' })
 
-      navigate('/register/success', {
+      navigate('/auth/register/success', {
         state: { email: data.email, username: data.username },
       })
     }
-
-    setIsLoading(false)
   }
 
   return (

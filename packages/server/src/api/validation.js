@@ -18,11 +18,11 @@ function isPasswordComplex(password) {
   )
 }
 
-function validate(email, password) {
+function validateRegister(email, password) {
   let emailError = ''
   let passwordError = ''
   if (!isEmailValid(email)) {
-    emailError = 'Email must be valid'
+    emailError = 'Email address must be valid'
   }
 
   if (!isPasswordComplex(password)) {
@@ -37,8 +37,32 @@ function validate(email, password) {
   }
 }
 
+function validateLogin(email, password) {
+  let emailError = ''
+  let passwordError = ''
+
+  if (email === '') {
+    emailError = 'Enter your email address'
+  }
+
+  if (emailError === '' && !isEmailValid(email)) {
+    emailError = 'Email address must be valid'
+  }
+
+  if (password === '') {
+    passwordError = 'Enter your password'
+  }
+
+  return {
+    hasError: emailError !== '' || passwordError !== '',
+    emailError,
+    passwordError,
+  }
+}
+
 module.exports = {
   isEmailValid,
   isPasswordComplex,
-  validate,
+  validateRegister,
+  validateLogin,
 }

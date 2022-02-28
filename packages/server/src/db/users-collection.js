@@ -2,7 +2,7 @@ const { MongoClient } = require('mongodb')
 
 const getDbClient = () => new MongoClient(process.env.DB_CONNECTION_STRING)
 
-async function readUser(username) {
+async function readUser(email) {
   const client = getDbClient()
 
   try {
@@ -10,7 +10,7 @@ async function readUser(username) {
     const database = client.db('todos-db')
     const collection = database.collection('users')
 
-    const document = await collection.findOne({ username })
+    const document = await collection.findOne({ email })
 
     return {
       document,
