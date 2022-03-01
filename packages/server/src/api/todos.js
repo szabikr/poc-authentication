@@ -74,6 +74,8 @@ async function deleteTodoHandler(req, res) {
 }
 
 async function getTodosHandler(req, res) {
+  const { user } = req
+  console.log(`todos should be for user with id: ${user.id}`)
   const todos = await readTodos()
   return res.send(todos)
 }

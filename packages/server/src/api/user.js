@@ -88,7 +88,12 @@ async function postUserLogin(req, res) {
     })
   }
 
-  const authToken = jwt.sign({ id: user.id }, process.env.AUTH_TOKEN_SECRET)
+  const authToken = jwt.sign(
+    {
+      user: { id: user.id },
+    },
+    process.env.AUTH_TOKEN_SECRET,
+  )
 
   return res
     .header('auth-token', authToken)

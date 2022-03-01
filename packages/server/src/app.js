@@ -4,6 +4,7 @@ const loggerMiddleware = require('./logger-middleware')
 const apiHandlers = require('./api/handlers')
 const uiHandlers = require('./ui/handlers')
 const { postUserRegister, postUserLogin } = require('./api/user')
+const verifyAuthToken = require('./verifyAuthToken')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -20,7 +21,7 @@ app.post('/api/todo', apiHandlers.postTodoHandler)
 app.put('/api/todo/:id', apiHandlers.putTodoHandler)
 app.delete('/api/todo/:id', apiHandlers.deleteTodoHandler)
 
-app.get('/api/todos', apiHandlers.getTodosHandler)
+app.get('/api/todos', verifyAuthToken, apiHandlers.getTodosHandler)
 app.put('/api/todos/reset', apiHandlers.resetTodosHandler)
 
 app.post('/api/complete-todo/:id', apiHandlers.completeTodoHandler)
