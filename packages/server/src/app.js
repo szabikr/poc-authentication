@@ -41,6 +41,10 @@ app.get('/auth/login', (req, res) => {
   res.sendFile(getPathToClient())
 })
 
+app.get('/home', (req, res) => {
+  res.sendFile(getPathToClient())
+})
+
 app.get('/', (req, res) => {
   res.sendFile(getPathToClient())
 })

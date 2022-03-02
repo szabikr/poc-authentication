@@ -79,7 +79,7 @@ export default function LoginForm() {
       setEmail({ value: '', error: '' })
       setPassword({ value: '', error: '' })
 
-      navigate('/auth/login/success', {
+      navigate('/home', {
         state: { username: data.username, authToken: data.authToken },
       })
     }

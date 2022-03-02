@@ -5,6 +5,7 @@ import Welcome from './components/welcome'
 import Auth from './components/auth'
 import { RegisterForm, RegisterSuccess } from './components/register'
 import { LoginForm, LoginSuccess } from './components/login'
+import Home from './components/home'
 
 export default function AppRouter() {
   return (
@@ -18,6 +19,7 @@ export default function AppRouter() {
             <Route path="login" element={<LoginForm />} />
             <Route path="login/success" element={<LoginSuccess />} />
           </Route>
+          <Route path="home" element={<Home />} />
         </Route>
       </Routes>
     </BrowserRouter>
