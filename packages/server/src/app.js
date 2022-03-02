@@ -4,7 +4,7 @@ const loggerMiddleware = require('./logger-middleware')
 const apiHandlers = require('./api/handlers')
 const uiHandlers = require('./ui/handlers')
 const { postUserRegister, postUserLogin } = require('./api/user')
-const verifyAuthToken = require('./verifyAuthToken')
+const verifyAuthToken = require('./verify-auth-token')
 
 const app = express()
 const port = process.env.PORT || 3000
