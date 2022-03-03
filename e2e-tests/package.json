@@ -7,7 +7,9 @@
   "author": "szabikr",
   "license": "MIT",
   "scripts": {
-    "test:e2e": "wdio run wdio.conf.js"
+    "test:e2e": "wdio run wdio.conf.js",
+    "prettier": "prettier --write test",
+    "prettier:check": "prettier --check test"
   },
   "dependencies": {
     "@wdio/cli": "^7.16.16"
@@ -20,6 +22,7 @@
     "@wdio/mocha-framework": "^7.16.15",
     "@wdio/spec-reporter": "^7.16.14",
     "chromedriver": "^98.0.1",
+    "prettier": "^2.5.1",
     "wdio-chromedriver-service": "^7.2.8"
   }
 }
