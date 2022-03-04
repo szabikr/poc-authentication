@@ -5,8 +5,12 @@ class WelcomePage extends Page {
     return $('h2')
   }
 
+  get createYourAccountLink() {
+    return $('a[href="/auth/register"]')
+  }
+
   open() {
-    return browser.url('/')
+    return super.open('')
   }
 }
 

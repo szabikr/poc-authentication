@@ -94,7 +94,7 @@ export default function LoginForm() {
       </Box>
 
       <TextField
-        id="email"
+        id="email-address"
         label="Email address"
         variant="outlined"
         type="email"

@@ -104,7 +104,7 @@ export default function RegisterForm() {
         </Typography>
       </Box>
       <TextField
-        id="email"
+        id="email-address"
         label="Email address"
         variant="outlined"
         type="email"
@@ -150,6 +150,7 @@ export default function RegisterForm() {
         If you can, do not reuse any of your existing passwords
       </Alert>
       <Button
+        type="submit"
         variant="contained"
         disabled={isLoading}
         onClick={handleRegisterOnClick}

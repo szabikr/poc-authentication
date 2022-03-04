@@ -12,7 +12,8 @@
     "prettier:check": "prettier --check test"
   },
   "dependencies": {
-    "@wdio/cli": "^7.16.16"
+    "@wdio/cli": "^7.16.16",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/register": "^7.17.0",
