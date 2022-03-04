@@ -29,31 +29,33 @@ describe('Auth - Register Page', () => {
     await expect(LoginPage.title).toBeExisting()
   })
 
-  it('should register successfuly', async () => {
-    await RegisterPage.open()
+  describe('Happy Path', () => {
+    it('should register successfully', async () => {
+      await RegisterPage.open()
 
-    const email = `e2e-test.${uuid().slice(0, 8)}@address.com`
-    const password = 'Password123!'
-    const confirmPassword = 'Password123!'
-    await RegisterPage.register(email, password, confirmPassword)
+      const email = `e2e-test.${uuid().slice(0, 8)}@address.com`
+      const password = 'Password123!'
+      const confirmPassword = 'Password123!'
+      await RegisterPage.register(email, password, confirmPassword)
 
-    await browser.waitUntil(
-      async () =>
-        (await browser.getUrl()) === `${BASE_URL}/auth/register/success`,
-      {
-        timeout: 5000,
-        timeoutMsg: 'expected to navigate to Register Success page after 5s',
-      },
-    )
+      await browser.waitUntil(
+        async () =>
+          (await browser.getUrl()) === `${BASE_URL}/auth/register/success`,
+        {
+          timeout: 5000,
+          timeoutMsg: 'expected to navigate to Register Success page after 5s',
+        },
+      )
 
-    // TODO: Change this part of the test once the proper authentication flow is figured out
+      // TODO: Change this part of the test once the proper authentication flow is figured out
 
-    const registerSuccessTitle = $('h1')
+      const registerSuccessTitle = $('h1')
 
-    await expect(registerSuccessTitle).toBeExisting()
+      await expect(registerSuccessTitle).toBeExisting()
 
-    const registerSuccessTitleText = await registerSuccessTitle.getText()
-    expect(registerSuccessTitleText).toBe('Registration was successful')
+      const registerSuccessTitleText = await registerSuccessTitle.getText()
+      expect(registerSuccessTitleText).toBe('Registration was successful')
+    })
   })
 
   describe('Error Paths', () => {
