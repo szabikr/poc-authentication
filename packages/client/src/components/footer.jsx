@@ -11,6 +11,7 @@ export default function Footer() {
           textAlign: 'center',
           mt: 2,
         }}
+        id="footer-content"
       >
         a <strong>szabi.space</strong> development
       </Box>
