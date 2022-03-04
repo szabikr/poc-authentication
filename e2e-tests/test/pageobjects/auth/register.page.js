@@ -5,16 +5,29 @@ class RegisterPage extends Page {
     return $('h4')
   }
 
-  get inputEmailAddress() {
-    return $('#email-address')
+  get loginLink() {
+    return $('a[href="/auth/login"')
   }
 
-  get inputPassword() {
-    return $('#password')
+  get fieldEmailAddress() {
+    return {
+      input: $('#email-address'),
+      error: $('#email-address-helper-text'),
+    }
   }
 
-  get inputConfirmPassword() {
-    return $('#confirm-password')
+  get fieldPassword() {
+    return {
+      input: $('#password'),
+      error: $('#password-helper-text'),
+    }
+  }
+
+  get fieldConfirmPassword() {
+    return {
+      input: $('#confirm-password'),
+      error: $('#confirm-password-helper-text'),
+    }
   }
 
   get buttonRegister() {
@@ -22,9 +35,9 @@ class RegisterPage extends Page {
   }
 
   async register(email, password, confirmPassword) {
-    await this.inputEmailAddress.setValue(email)
-    await this.inputPassword.setValue(password)
-    await this.inputConfirmPassword.setValue(confirmPassword)
+    await this.fieldEmailAddress.input.setValue(email)
+    await this.fieldPassword.input.setValue(password)
+    await this.fieldConfirmPassword.input.setValue(confirmPassword)
     await this.buttonRegister.click()
   }
 
