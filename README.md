@@ -1,5 +1,7 @@
 # move-to-done
 
+[![Continuous Integration](https://github.com/szabikr/move-to-done/actions/workflows/ci-pipeline.yml/badge.svg?branch=main)](https://github.com/szabikr/move-to-done/actions/workflows/ci-pipeline.yml)
+
 - `$ yarn install`
 - `$ yarn start`
 
