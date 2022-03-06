@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies 📦
         run: yarn install --frozen-lockfile
       - name: Perform static code analysis 🔬
-        run: bash static-code-analysis.sh
+        run: bash ci-scripts/static-code-analysis.sh
 
   build:
     # Build client
@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies 📦
         run: yarn install --frozen-lockfile
       - name: Build client 🛠
-        run: bash build.sh
+        run: bash ci-scripts/build.sh
 
   test:
     # Run unit tests in all repos
@@ -45,4 +45,4 @@ jobs:
       - name: Install dependencies 📦
         run: yarn install --frozen-lockfile
       - name: Run unit tests 🧪
-        run: bash unit-test.sh
+        run: bash ci-scripts/unit-test.sh
