@@ -7,18 +7,16 @@ on:
 jobs:
   static-code-analysis:
     # Run prettier:check and lint in all repos
-    runs-on: ubuntu latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: echo "👍 job executed"
-      # - name: Set up NodeJS
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: "16.x"
-      # - name: Install dependencies 📦
-      #   run: yarn install --frozen-lockfile
-      # - run: yarn workspace @mtd/client prettier:check
-      # - run: yarn workspace @mtd/client lint
+      - name: Set up NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16.x"
+      - name: Install dependencies 📦
+        run: yarn install --frozen-lockfile
+      - run: bash static-code-analysis.sh
 
   # build:
   #   # Build client for production
