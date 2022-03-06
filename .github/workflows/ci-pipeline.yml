@@ -16,7 +16,8 @@ jobs:
           node-version: "16.x"
       - name: Install dependencies 📦
         run: yarn install --frozen-lockfile
-      - run: bash static-code-analysis.sh
+      - name: Perform static code analysis 🔬
+        run: bash static-code-analysis.sh
 
   build:
     # Build client
@@ -29,7 +30,8 @@ jobs:
           node-version: "16.x"
       - name: Install dependencies 📦
         run: yarn install --frozen-lockfile
-      - run: bash build.sh
+      - name: Build client 🛠
+        run: bash build.sh
 
   # test:
   #   # Run unit tests in all repos
