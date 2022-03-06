@@ -1,13 +1,15 @@
 const readline = require('readline')
 const { deleteE2eUsers, countUsers } = require('./db')
 
+console.log('')
 console.log('Move to Done Utility Library')
 console.log('----------------------------')
+console.log('')
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
-  prompt: 'MTD_Utils > ',
+  prompt: 'M2D_Utils > ',
 })
 
 rl.prompt()
@@ -33,9 +35,12 @@ rl.on('line', async (line) => {
       if (count) {
         console.log(`There are ${count} users`)
       } else {
-        console.log('Something went wrong')
+        console.log('Can not get users count')
       }
       break
+
+    case 'exit':
+      rl.close()
 
     default: {
       console.log(`Say what? My memory is vague about '${line.trim()}'`)
@@ -44,6 +49,6 @@ rl.on('line', async (line) => {
   }
   rl.prompt()
 }).on('close', () => {
-  console.log('Farewell MTD Engineer!')
+  console.log('Farewell M2D Engineer!')
   process.exit(0)
 })

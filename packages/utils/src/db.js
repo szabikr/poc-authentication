@@ -1,9 +1,20 @@
 const { MongoClient } = require('mongodb')
 
-const getDbClient = () => new MongoClient(process.env.DB_CONNECTION_STRING)
+const getDbClient = () => {
+  if (process.env.DB_CONNECTION_STRING === undefined) {
+    console.error('Make sure you set environment variables')
+    return null
+  }
+  new MongoClient(process.env.DB_CONNECTION_STRING)
+}
 
 async function deleteE2eUsers() {
   const client = getDbClient()
+
+  if (!client) {
+    console.error('MongoDB Client is not defined')
+    return
+  }
 
   try {
     await client.connect()
@@ -14,7 +25,7 @@ async function deleteE2eUsers() {
 
     return result.deletedCount
   } catch (err) {
-    console.err(err)
+    console.error(err)
     return null
   } finally {
     await client.close()
@@ -23,6 +34,12 @@ async function deleteE2eUsers() {
 
 async function countUsers() {
   const client = getDbClient()
+
+  if (!client) {
+    console.error('MongoDB Client is not defined')
+    return
+  }
+
   try {
     await client.connect()
     const database = client.db('todos-db')
@@ -32,7 +49,7 @@ async function countUsers() {
 
     return result
   } catch (err) {
-    console.err(err)
+    console.error(err)
     return null
   } finally {
     await client.close()
