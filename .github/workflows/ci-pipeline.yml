@@ -10,14 +10,15 @@ jobs:
     runs-on: ubuntu latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up NodeJS
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-      - name: Install dependencies 📦
-        run: yarn install --frozen-lockfile
-      - run: yarn workspace @mtd/client prettier:check
-      - run: yarn workspace @mtd/client lint
+      - run: echo "👍 job executed"
+      # - name: Set up NodeJS
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: "16.x"
+      # - name: Install dependencies 📦
+      #   run: yarn install --frozen-lockfile
+      # - run: yarn workspace @mtd/client prettier:check
+      # - run: yarn workspace @mtd/client lint
 
   # build:
   #   # Build client for production
