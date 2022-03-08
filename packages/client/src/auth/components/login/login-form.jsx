@@ -37,7 +37,7 @@ export default function LoginForm() {
 
     let response
     try {
-      response = await fetch('/api/user/login', {
+      response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
