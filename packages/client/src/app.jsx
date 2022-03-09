@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import { Container, CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme'
-import Logo from './components/logo'
+import Header from './components/header'
 import Footer from './components/footer'
 
 export default function App() {
@@ -11,7 +11,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container>
-        <Logo />
+        <Header />
         <Outlet />
         <Footer />
       </Container>
