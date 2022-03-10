@@ -15,7 +15,9 @@ export default function Welcome() {
           </Typography>
           <Box sx={{ mt: 4 }} textAlign="center">
             <Link to="/auth/register" style={{ textDecoration: 'none' }}>
-              <Button variant="contained">Create your account</Button>
+              <Button id="create-your-account-button" variant="contained">
+                Create your account
+              </Button>
             </Link>
           </Box>
         </Stack>

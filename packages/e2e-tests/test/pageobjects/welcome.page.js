@@ -6,7 +6,15 @@ class WelcomePage extends Page {
   }
 
   get createYourAccountLink() {
+    return $('#create-your-account-button')
+  }
+
+  get registerLink() {
     return $('a[href="/auth/register"]')
+  }
+
+  get loginLink() {
+    return $('a[href="/auth/login"]')
   }
 
   open() {

@@ -7,7 +7,7 @@
   "author": "szabikr <szabikr.dev@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test:e2e": "wdio run wdio.conf.js",
+    "test:e2e": "wdio run ./wdio.conf.js",
     "prettier": "prettier --write test",
     "prettier:check": "prettier --check test"
   },
