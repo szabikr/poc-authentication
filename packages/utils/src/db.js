@@ -5,7 +5,7 @@ const getDbClient = () => {
     console.error('Make sure you set environment variables')
     return null
   }
-  new MongoClient(process.env.DB_CONNECTION_STRING)
+  return new MongoClient(process.env.DB_CONNECTION_STRING)
 }
 
 async function deleteE2eUsers() {
