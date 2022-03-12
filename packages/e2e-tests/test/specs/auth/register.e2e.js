@@ -13,7 +13,7 @@ describe('Auth - Register Page', () => {
     await expect(RegisterPage.title).toBeExisting()
 
     const titleText = await RegisterPage.title.getText()
-    await expect(titleText).toBe('Create your account')
+    expect(titleText).toBe('Create your account')
   })
 
   it('should have a link that navigates to the Login page', async () => {

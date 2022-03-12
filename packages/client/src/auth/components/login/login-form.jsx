@@ -130,6 +130,7 @@ export default function LoginForm() {
 
       <Button
         variant="contained"
+        type="submit"
         disabled={isLoading}
         onClick={handleLoginOnClick}
       >
