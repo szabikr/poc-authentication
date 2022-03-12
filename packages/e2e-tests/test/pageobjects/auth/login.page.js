@@ -23,6 +23,10 @@ class LoginPage extends Page {
     }
   }
 
+  get loginErrorMsg() {
+    return $('#login-error .MuiAlert-message')
+  }
+
   get buttonLogin() {
     return $('button[type="submit"]')
   }

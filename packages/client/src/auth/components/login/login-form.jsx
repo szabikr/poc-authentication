@@ -123,7 +123,7 @@ export default function LoginForm() {
       />
 
       {loginError !== '' && (
-        <Alert variant="outlined" severity="error">
+        <Alert id="login-error" variant="outlined" severity="error">
           {loginError}
         </Alert>
       )}
