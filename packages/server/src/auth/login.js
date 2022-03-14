@@ -41,7 +41,9 @@ async function login(req, res) {
   const payload = {
     user: { id: user.id },
   }
-  const authToken = jwt.sign(payload, process.env.AUTH_TOKEN_SECRET)
+  const authToken = jwt.sign(payload, process.env.AUTH_TOKEN_SECRET, {
+    expiresIn: '1h',
+  })
 
   return res
     .header('auth-token', authToken)
