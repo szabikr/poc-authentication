@@ -46,7 +46,28 @@ async function createUser(user) {
   }
 }
 
+async function replaceUser(user) {
+  const client = getDbClient()
+
+  try {
+    await client.connect()
+    const database = client.db('todos-db')
+    const collection = database.collection('users')
+
+    const result = await collection.replaceOne({ id: user.id }, user)
+
+    return result.matchedCount
+  } catch (err) {
+    console.error(err)
+    return err
+  } finally {
+    await client.close()
+    console.log('db connection closed')
+  }
+}
+
 module.exports = {
   readUser,
   createUser,
+  replaceUser,
 }

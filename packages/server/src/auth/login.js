@@ -1,6 +1,7 @@
+const crypto = require('crypto')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { readUser } = require('./users-collection')
+const { readUser, replaceUser } = require('./users-collection')
 const { validateLogin } = require('./validation')
 
 async function login(req, res) {
@@ -39,16 +40,32 @@ async function login(req, res) {
   }
 
   const payload = {
-    user: { id: user.id },
+    user: {
+      id: user.id,
+      username: user.username,
+    },
   }
-  const authToken = jwt.sign(payload, process.env.AUTH_TOKEN_SECRET, {
+  const accessToken = jwt.sign(payload, process.env.AUTH_TOKEN_SECRET, {
     expiresIn: '1h',
   })
 
-  return res
-    .header('auth-token', authToken)
-    .status(200)
-    .json({ username: user.username, authToken })
+  const refreshToken = crypto.randomBytes(32).toString('hex')
+
+  replaceUser({
+    ...user,
+    refreshTokens: [
+      {
+        token: refreshToken,
+        createdOn: Date.now(),
+      },
+      ...(user.refreshTokens ?? []),
+    ],
+  })
+
+  return res.header('auth-token', accessToken).status(200).json({
+    access_token: accessToken,
+    refresh_token: refreshToken,
+  })
 }
 
 module.exports = login
