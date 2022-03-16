@@ -22,6 +22,7 @@
       "error",
       "after",
       { "overrides": { "?": "before", ":": "before" } }
-    ]
+    ],
+    "no-console": "off"
   }
 }
