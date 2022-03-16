@@ -1,38 +1,68 @@
 const { MongoClient } = require('mongodb')
 
-const getDbClient = () => new MongoClient(process.env.DB_CONNECTION_STRING)
+const getDbClient = () => {
+  const dbConnectionString = process.env.DB_CONNECTION_STRING
+
+  if (dbConnectionString === undefined) {
+    console.error('Make sure you set Environment Variables')
+    return null
+  }
+  return new MongoClient(dbConnectionString)
+}
 
 async function readUser(email) {
   const client = getDbClient()
 
+  if (!client) {
+    console.error('MongoDB Client is not defined')
+    return { hasError: true }
+  }
+
   try {
     await client.connect()
-    const database = client.db('todos-db')
-    const collection = database.collection('users')
-
+    const collection = client.db('todos-db').collection('users')
     const document = await collection.findOne({ email })
-
-    return {
-      document,
-    }
+    return { document }
   } catch (err) {
     console.error(err)
-    return {
-      hasError: true,
-    }
+    return { hasError: true }
   } finally {
     await client.close()
-    console.log('db connection closed')
+  }
+}
+
+async function readUserById(id) {
+  const client = getDbClient()
+
+  if (!client) {
+    console.error('MongoDB Client is not defined')
+    return { hasError: true }
+  }
+
+  try {
+    await client.connect()
+    const collection = client.db('todos-db').collection('users')
+    const document = await collection.findOne({ id })
+    return { document }
+  } catch (err) {
+    console.error(err)
+    return { hasError: true }
+  } finally {
+    await client.close()
   }
 }
 
 async function createUser(user) {
   const client = getDbClient()
 
+  if (!client) {
+    console.error('MongoDB Client is not defined')
+    return { hasError: true }
+  }
+
   try {
     await client.connect()
-    const database = client.db('todos-db')
-    const collection = database.collection('users')
+    const collection = client.db('todos-db').collection('users')
 
     const result = await collection.insertOne(user)
 
@@ -42,32 +72,11 @@ async function createUser(user) {
     return err
   } finally {
     await client.close()
-    console.log('db connection closed')
-  }
-}
-
-async function replaceUser(user) {
-  const client = getDbClient()
-
-  try {
-    await client.connect()
-    const database = client.db('todos-db')
-    const collection = database.collection('users')
-
-    const result = await collection.replaceOne({ id: user.id }, user)
-
-    return result.matchedCount
-  } catch (err) {
-    console.error(err)
-    return err
-  } finally {
-    await client.close()
-    console.log('db connection closed')
   }
 }
 
 module.exports = {
   readUser,
+  readUserById,
   createUser,
-  replaceUser,
 }
