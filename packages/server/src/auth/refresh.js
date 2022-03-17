@@ -1,5 +1,6 @@
 const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
+const { invalidateRefreshTokenChain } = require('./invalidate-refresh-tokens')
 const {
   readRefreshToken,
   createRefreshToken,
@@ -11,8 +12,6 @@ async function refresh(req, res) {
   if (!req.body || !req.body.refresh_token) {
     return res.status(400).end('Invalid Request Body')
   }
-
-  console.log('refresh_token is', req.body.refresh_token)
 
   const result = await readRefreshToken(req.body.refresh_token)
 
@@ -30,14 +29,12 @@ async function refresh(req, res) {
   }
 
   if (currentRefreshToken.replacedBy) {
-    console.log(
-      'should revoke all access tokens and refresh tokens cuz somebody tried to get a refresh token outside of the apps authorization flow',
-    )
+    invalidateRefreshTokenChain(currentRefreshToken)
     return res.status(401).end('Access Denied')
   }
 
   if (currentRefreshToken.expiresAt < Date.now()) {
-    console.log('refresh token is expired')
+    console.log('refresh token has expired')
     return res.status(401).end('Access Denied')
   }
 
@@ -70,7 +67,7 @@ async function refresh(req, res) {
   createRefreshToken({
     value: refreshToken,
     userId: user.id,
-    expiresAt: Date.now() + parseInt(process.env.REFRESH_TOKEN_EXPIRES_IN, 10),
+    expiresAt: currentRefreshToken.expiresAt,
     createdAt: Date.now(),
   })
 
