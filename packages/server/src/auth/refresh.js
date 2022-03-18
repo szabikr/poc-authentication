@@ -59,7 +59,7 @@ async function refresh(req, res) {
     },
   }
   const accessToken = jwt.sign(payload, process.env.AUTH_TOKEN_SECRET, {
-    expiresIn: '1h',
+    expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
   })
 
   const refreshToken = crypto.randomBytes(32).toString('hex')
