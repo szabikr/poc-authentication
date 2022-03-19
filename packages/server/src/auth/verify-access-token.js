@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const ACCESS_DENIED_ERROR = 'Access Denied Error'
 const TOKEN_EXPIRED_ERROR = 'Token Expired Error'
 
-module.exports = function verifyAuthToken(req, res, next) {
+module.exports = function verifyAccessToken(req, res, next) {
   const authHeader = req.header('authorization')
 
   if (typeof authHeader !== 'string' || !authHeader.startsWith('Bearer ')) {

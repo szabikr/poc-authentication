@@ -8,12 +8,12 @@ export default function Home() {
 
   useEffect(() => {
     async function doEffect() {
-      const authToken = state?.authToken
+      const accessToken = state?.accessToken
       try {
         const response = await fetch('/api/todos', {
           headers: {
             'Content-Type': 'application/json',
-            'auth-token': authToken,
+            authorization: `Bearer ${accessToken}`,
           },
         })
 

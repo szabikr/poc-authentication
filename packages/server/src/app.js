@@ -3,7 +3,7 @@ const express = require('express')
 const loggerMiddleware = require('./logger-middleware')
 const apiHandlers = require('./api/handlers')
 const uiHandlers = require('./ui/handlers')
-const verifyAuthToken = require('./auth/verify-auth-token')
+const verifyAccessToken = require('./auth/verify-access-token')
 
 const authRouter = require('./auth/auth-router')
 
@@ -15,7 +15,7 @@ app.use(loggerMiddleware)
 app.use(express.static(path.join(__dirname, '../../client/build')))
 
 app.use('/api/auth', authRouter)
-app.get('/api/todos', verifyAuthToken, apiHandlers.getTodosHandler)
+app.get('/api/todos', verifyAccessToken, apiHandlers.getTodosHandler)
 
 app.get('/api/todo/:id', apiHandlers.getTodoHandler)
 app.post('/api/todo', apiHandlers.postTodoHandler)
