@@ -80,7 +80,11 @@ export default function LoginForm() {
       setPassword({ value: '', error: '' })
 
       navigate('/home', {
-        state: { username: data.username, accessToken: data.access_token },
+        state: {
+          username: data.username,
+          accessToken: data.access_token,
+          refreshToken: data.refresh_token,
+        },
       })
     }
   }
