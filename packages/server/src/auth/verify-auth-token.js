@@ -4,7 +4,14 @@ const ACCESS_DENIED_ERROR = 'Access Denied Error'
 const TOKEN_EXPIRED_ERROR = 'Token Expired Error'
 
 module.exports = function verifyAuthToken(req, res, next) {
-  const token = req.header('auth-token')
+  const authHeader = req.header('authorization')
+
+  if (typeof authHeader !== 'string' || !authHeader.startsWith('Bearer ')) {
+    console.log('Authorization header is incorrect')
+    return res.status(401).json({ error: ACCESS_DENIED_ERROR })
+  }
+
+  const token = authHeader.substring(7, authHeader.length)
 
   if (!token) {
     return res.status(401).json({ error: ACCESS_DENIED_ERROR })
