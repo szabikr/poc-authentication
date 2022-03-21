@@ -1,53 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import refreshTokens from '../auth/refresh-tokens'
-
-const TOKEN_EXPIRED_ERROR = 'Token Expired Error'
+import getTodos, { AUTHENTICATION_ERROR } from '../service/get-todos'
 
 export default function Home() {
   const { state } = useLocation()
   const navigate = useNavigate()
   const [todos, setTodos] = useState([])
 
-  console.log('access token is', state?.accessToken)
-
   useEffect(() => {
-    async function fetchTodos() {
-      const accessToken = state?.accessToken
-      try {
-        const response = await fetch('/api/todos', {
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Bearer ${accessToken}`,
-          },
-        })
+    async function doEffect() {
+      const result = await getTodos(state?.accessToken, state?.refreshToken)
 
-        if (response.status === 401) {
-          const { error } = await response.json()
-          if (error !== TOKEN_EXPIRED_ERROR) {
-            navigate('/auth/login')
-            return
-          }
-
-          console.log(
-            'error is that token has expired, should use refresh token to get a new one',
-          )
-
-          const tokens = await refreshTokens(state?.refreshToken)
-
-          console.log('tokens:', JSON.stringify(tokens, null, 2))
-
+      if (result.hasError) {
+        if (result.error === AUTHENTICATION_ERROR) {
+          navigate('/auth/login')
           return
         }
 
-        const data = await response.json()
-        setTodos(data)
-      } catch (error) {
-        console.log('error while making fetch request', error)
+        console.log('Something went wrong and the error is', result.error)
+        return
       }
+
+      setTodos(result.data)
     }
 
-    fetchTodos()
+    doEffect()
   }, [])
 
   return (

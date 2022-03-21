@@ -1,6 +1,4 @@
 async function refreshTokens(refreshToken) {
-  console.log('refresh token is', refreshToken)
-
   try {
     const response = await fetch('/api/auth/refresh', {
       method: 'POST',
