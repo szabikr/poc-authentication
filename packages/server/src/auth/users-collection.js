@@ -1,14 +1,4 @@
-const { MongoClient } = require('mongodb')
-
-const getDbClient = () => {
-  const dbConnectionString = process.env.DB_CONNECTION_STRING
-
-  if (dbConnectionString === undefined) {
-    console.error('Make sure you set Environment Variables')
-    return null
-  }
-  return new MongoClient(dbConnectionString)
-}
+const { getDbClient } = require('../db-client')
 
 async function readUser(email) {
   const client = getDbClient()
@@ -63,9 +53,7 @@ async function createUser(user) {
   try {
     await client.connect()
     const collection = client.db('todos-db').collection('users')
-
     const result = await collection.insertOne(user)
-
     return result.acknowledged
   } catch (err) {
     console.error(err)

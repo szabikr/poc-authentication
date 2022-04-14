@@ -17,7 +17,6 @@ async function createCompletedTodo(completedTodo) {
     return err
   } finally {
     await client.close()
-    console.log('db connection closed')
   }
 }
 
