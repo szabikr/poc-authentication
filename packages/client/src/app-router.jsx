@@ -9,23 +9,26 @@ import {
   RegisterSuccess,
   LoginForm,
   LoginSuccess,
+  AuthContextProvider,
 } from './auth'
 
 export default function AppRouter() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<Welcome />} />
-          <Route path="auth" element={<AuthContainer />}>
-            <Route path="register" element={<RegisterForm />} />
-            <Route path="register/success" element={<RegisterSuccess />} />
-            <Route path="login" element={<LoginForm />} />
-            <Route path="login/success" element={<LoginSuccess />} />
+    <AuthContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<Welcome />} />
+            <Route path="auth" element={<AuthContainer />}>
+              <Route path="register" element={<RegisterForm />} />
+              <Route path="register/success" element={<RegisterSuccess />} />
+              <Route path="login" element={<LoginForm />} />
+              <Route path="login/success" element={<LoginSuccess />} />
+            </Route>
+            <Route path="home" element={<Home />} />
           </Route>
-          <Route path="home" element={<Home />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </AuthContextProvider>
   )
 }

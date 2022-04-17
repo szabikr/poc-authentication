@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   Stack,
@@ -11,11 +11,13 @@ import {
   Alert,
   Link as MuiLink,
 } from '@mui/material'
-import validate from './validate'
+import { AuthContext } from '../../auth-context'
 import PasswordField from '../password-field'
+import validate from './validate'
 
 export default function LoginForm() {
   const navigate = useNavigate()
+  const authContext = useContext(AuthContext)
 
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
@@ -35,6 +37,7 @@ export default function LoginForm() {
 
     setIsLoading(true)
 
+    // TODO: There is a need for an auth/login fetch service
     let response
     try {
       response = await fetch('/api/auth/login', {
@@ -79,13 +82,12 @@ export default function LoginForm() {
       setEmail({ value: '', error: '' })
       setPassword({ value: '', error: '' })
 
-      navigate('/home', {
-        state: {
-          username: data.username,
-          accessToken: data.access_token,
-          refreshToken: data.refresh_token,
-        },
+      authContext.login({
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token,
       })
+
+      navigate('/home')
     }
   }
 

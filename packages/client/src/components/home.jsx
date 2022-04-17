@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../auth'
 import getTodos, { AUTHENTICATION_ERROR } from '../service/get-todos'
 
 export default function Home() {
-  const { state } = useLocation()
+  const authContext = useContext(AuthContext)
   const navigate = useNavigate()
   const [todos, setTodos] = useState([])
 
   useEffect(() => {
     async function doEffect() {
-      const result = await getTodos(state?.accessToken, state?.refreshToken)
+      const result = await getTodos(
+        authContext.accessToken,
+        authContext.refreshToken,
+      )
 
       if (result.hasError) {
         if (result.error === AUTHENTICATION_ERROR) {
