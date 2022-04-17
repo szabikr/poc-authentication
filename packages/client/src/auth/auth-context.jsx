@@ -10,13 +10,16 @@ function AuthContextProvider({ children }) {
   const login = useCallback((response) => {
     setAccessToken(response.accessToken)
     setRefreshToken(response.refreshToken)
-  })
+  }, [])
 
-  const contextValue = useMemo(() => ({
-    accessToken,
-    refreshToken,
-    login,
-  }))
+  const contextValue = useMemo(
+    () => ({
+      accessToken,
+      refreshToken,
+      login,
+    }),
+    [accessToken, refreshToken, login],
+  )
 
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
