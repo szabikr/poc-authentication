@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useMemo, useState } from 'react'
 import PropTypes from 'prop-types'
 
-const AuthContext = createContext(null)
+export const AuthContext = createContext(null)
 
 function AuthContextProvider({ children }) {
   const [accessToken, setAccessToken] = useState(null)

@@ -1,16 +1,31 @@
-import React from 'react'
-import { render } from '@testing-library/react'
-import AuthContextProvider from './auth-context'
+import React, { useContext } from 'react'
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom'
+import AuthContextProvider, { AuthContext } from './auth-context'
+
+function AuthContextConsumer() {
+  const auth = useContext(AuthContext)
+  return (
+    <>
+      <div>access token is: {auth.accessToken ?? 'null'}</div>
+      <div>refresh token is: {auth.refreshToken ?? 'null'}</div>
+    </>
+  )
+}
 
 describe('Auth Context Provider', () => {
-  it('should render AuthContextProvider without problem', () => {
+  it('should render components in AuthContextProvider with default values', () => {
     render(
       <AuthContextProvider>
-        <h1>Authenticated components</h1>
+        <AuthContextConsumer />
       </AuthContextProvider>,
     )
 
-    // TODO: Implement the tests
-    expect(true).toBe(false)
+    expect(screen.getByText(/^access token is:/)).toHaveTextContent(
+      'access token is: null',
+    )
+    expect(screen.getByText(/^refresh token is:/)).toHaveTextContent(
+      'refresh token is: null',
+    )
   })
 })
