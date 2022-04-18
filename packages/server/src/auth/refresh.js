@@ -64,14 +64,14 @@ async function refresh(req, res) {
 
   const refreshToken = crypto.randomBytes(32).toString('hex')
 
-  createRefreshToken({
+  await createRefreshToken({
     value: refreshToken,
     userId: user.id,
     expiresAt: currentRefreshToken.expiresAt,
     createdAt: Date.now(),
   })
 
-  setRefreshTokenReplacedBy(currentRefreshToken.value, refreshToken)
+  await setRefreshTokenReplacedBy(currentRefreshToken.value, refreshToken)
 
   return res.status(200).json({
     access_token: accessToken,

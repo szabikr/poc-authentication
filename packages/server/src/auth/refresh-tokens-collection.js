@@ -14,7 +14,7 @@ async function createRefreshToken(refreshToken) {
     const result = await collection.insertOne(refreshToken)
     return result
   } catch (err) {
-    console.log(err)
+    console.log('createRefreshToken error:', err)
     return {
       hasError: true,
     }
@@ -37,7 +37,7 @@ async function readRefreshToken(refreshTokenValue) {
     const document = await collection.findOne({ value: refreshTokenValue })
     return { document }
   } catch (err) {
-    console.error(err)
+    console.error('readRefreshToken error:', err)
     return { hasError: true }
   } finally {
     await client.close()
@@ -64,7 +64,7 @@ async function setRefreshTokenReplacedBy(
     )
     return result.acknowledged
   } catch (err) {
-    console.error(err)
+    console.error('setRefreshTokenReplacedBy error:', err)
     return { hasError: true }
   } finally {
     await client.close()
