@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import AuthContextProvider, { AuthContext } from './auth-context'
+import AuthContextProvider, { AuthContext } from '../auth-context'
 
 const ACCESS_TOKEN = 'ACCESS TOKEN VALUE'
 const REFRESH_TOKEN = 'REFRESH TOKEN VALUE'
