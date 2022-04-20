@@ -11,6 +11,9 @@ export const AuthContext = createContext(null)
 
 function AuthContextProvider({ children }) {
   const [accessToken, setAccessToken] = useState(null)
+
+  // The localStorage related code can potentially be separated out into its own custom hook
+  // See: https://blog.logrocket.com/using-localstorage-react-hooks
   const [refreshToken, setRefreshToken] = useState(() => {
     const savedRefreshToken = localStorage.getItem('refresh_token')
     const initialValue = JSON.parse(savedRefreshToken)
