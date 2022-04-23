@@ -1,5 +1,8 @@
 async function fetchTodos(accessToken) {
-  console.log('FETCH TODOS with accessToken', accessToken)
+  if (accessToken === null || accessToken === undefined) {
+    console.log('FETCH TODOS access token is null or undefined', accessToken)
+  }
+
   try {
     const response = await fetch('/api/todos', {
       headers: {

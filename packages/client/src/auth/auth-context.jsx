@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from 'react'
 import PropTypes from 'prop-types'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import refreshTokens from './refresh-tokens'
 
 export const AuthContext = createContext(null)
@@ -17,19 +17,42 @@ export const ACCESS_DENIED_ERROR = 'Access Denied Error'
 export const AUTHENTICATION_ERROR = 'Authnentication Error'
 
 function AuthContextProvider({ children }) {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const [accessToken, setAccessToken] = useState(null)
 
   // The localStorage related code can potentially be separated out into its own custom hook
   // See: https://blog.logrocket.com/using-localstorage-react-hooks
   const [refreshToken, setRefreshToken] = useState(() => {
     const savedRefreshToken = localStorage.getItem('refresh_token')
-    const initialValue = JSON.parse(savedRefreshToken)
-    return initialValue || null
+    if (savedRefreshToken === 'undefined') {
+      return null
+    }
+    return savedRefreshToken || null
   })
 
   useEffect(() => {
-    localStorage.setItem('refresh_token', JSON.stringify(refreshToken))
+    // For more information see this article about syncing localStorage between tabs
+    // https://medium.com/@mfreundlich1/syncing-localstorage-across-multiple-tabs-cb5d0b1feaab
+    const syncRefreshTokens = (e) => {
+      console.log(`Key Changed: ${e.key}`)
+      console.log(`New Value: ${e.newValue}`)
+      if (e.newValue !== refreshToken) {
+        setRefreshToken(e.newValue)
+      }
+    }
+    window.addEventListener('storage', syncRefreshTokens)
+    return () => {
+      window.removeEventListener('storage', syncRefreshTokens)
+    }
+  }, [])
+
+  useEffect(() => {
+    const savedRefreshToken = localStorage.getItem('refresh_token')
+    if (savedRefreshToken === refreshToken) {
+      console.log('refresh token has not changed')
+      return
+    }
+    localStorage.setItem('refresh_token', refreshToken)
   }, [refreshToken])
 
   const login = useCallback((response) => {
@@ -46,29 +69,31 @@ function AuthContextProvider({ children }) {
   })
 
   const refreshAccessToken = async () => {
-    console.log('refresh access token function has been called')
+    if (refreshToken === null) {
+      console.log('There is no refresh token', 'should navigate to login page')
+      // navigate('/auth/login')
+    }
+
     const response = await refreshTokens(refreshToken)
     if (response.hasError) {
       console.log('Error while refreshing tokens: ', response.error)
-      navigate('/auth/login')
+      console.log('should navigate to login page')
+      // navigate('/auth/login')
     }
-    console.log('invoking auth context login with the refreshed tokens')
-    console.log('tokens are:')
-    console.log('refreshToken', response.refreshToken)
-    console.log('accessToken', response.accessToken)
 
     setAccessToken(response.accessToken)
     setRefreshToken(response.refreshToken)
   }
 
-  useEffect(() => {
-    console.log('Initial refresh of the tokens')
-    refreshAccessToken()
-  }, [])
+  // useEffect(() => {
+  //   console.log('Initial refresh of the tokens')
+  //   refreshAccessToken()
+  // }, [])
 
   const contextValue = useMemo(
     () => ({
       accessToken,
+      refreshToken,
       login,
       refreshAccessToken,
       makeAuthenticatedRequest,

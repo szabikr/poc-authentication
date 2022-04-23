@@ -9,7 +9,6 @@ import {
   TextField,
   Snackbar,
   Alert,
-  Link as MuiLink,
 } from '@mui/material'
 import { AuthContext } from '../../auth-context'
 import PasswordField from '../password-field'
@@ -146,7 +145,12 @@ export default function LoginForm() {
       <Typography align="center" variant="subtitle1">
         Don&apos;t have an account?{' '}
         <Link to="/auth/register" style={{ textDecoration: 'none' }}>
-          <MuiLink underline="hover">Register</MuiLink>
+          {/* 
+            This causes a Warning that <a/> can not contain an <a/>
+            Once that's fixed turn this button into a link
+          */}
+          {/* <MuiLink underline="hover">Register</MuiLink> */}
+          <Button variant="text">Register</Button>
         </Link>
       </Typography>
 
