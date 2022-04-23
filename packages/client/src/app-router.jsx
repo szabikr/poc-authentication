@@ -14,8 +14,8 @@ import {
 
 export default function AppRouter() {
   return (
-    <AuthContextProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthContextProvider>
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Welcome />} />
@@ -28,7 +28,7 @@ export default function AppRouter() {
             <Route path="home" element={<Home />} />
           </Route>
         </Routes>
-      </BrowserRouter>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </BrowserRouter>
   )
 }

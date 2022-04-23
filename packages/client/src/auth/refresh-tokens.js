@@ -9,15 +9,15 @@ async function refreshTokens(refreshToken) {
     })
 
     if (response.status === 400) {
-      return { error: 'refresh tokens, Invalid Request Body' }
+      return { hasError: true, error: 'refresh tokens, Invalid Request Body' }
     }
 
     if (response.status === 500) {
-      return { error: 'refresh tokens, Internal server error' }
+      return { hasError: true, error: 'refresh tokens, Internal server error' }
     }
 
     if (response.status === 401) {
-      return { error: 'refresh tokens, Access denied' }
+      return { hasError: true, error: 'refresh tokens, Access denied' }
     }
 
     const data = await response.json()

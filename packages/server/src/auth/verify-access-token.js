@@ -3,8 +3,10 @@ const jwt = require('jsonwebtoken')
 const ACCESS_DENIED_ERROR = 'Access Denied Error'
 const TOKEN_EXPIRED_ERROR = 'Token Expired Error'
 
-module.exports = function verifyAccessToken(req, res, next) {
+function verifyAccessToken(req, res, next) {
   const authHeader = req.header('authorization')
+
+  console.log('authHeader is', authHeader)
 
   if (typeof authHeader !== 'string' || !authHeader.startsWith('Bearer ')) {
     console.log('Authorization header is incorrect')
@@ -22,6 +24,7 @@ module.exports = function verifyAccessToken(req, res, next) {
     req.user = result.user
   } catch (err) {
     if (err instanceof jwt.TokenExpiredError) {
+      console.log('verifyAccessToken Error: TokenExpiredError')
       return res.status(401).json({ error: TOKEN_EXPIRED_ERROR })
     }
 
@@ -33,3 +36,5 @@ module.exports = function verifyAccessToken(req, res, next) {
 
   return next()
 }
+
+module.exports = verifyAccessToken
