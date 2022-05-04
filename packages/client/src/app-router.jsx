@@ -11,6 +11,7 @@ import {
   LoginSuccess,
   AuthContextProvider,
 } from './auth'
+import AuthDemo from './components/auth-demo'
 
 export default function AppRouter() {
   return (
@@ -24,6 +25,7 @@ export default function AppRouter() {
               <Route path="register/success" element={<RegisterSuccess />} />
               <Route path="login" element={<LoginForm />} />
               <Route path="login/success" element={<LoginSuccess />} />
+              <Route path="demo" element={<AuthDemo />} />
             </Route>
             <Route path="home" element={<Home />} />
           </Route>

@@ -3,7 +3,7 @@ import { Alert, Box, Button, CircularProgress, Stack } from '@mui/material'
 import { AuthContext } from '../auth'
 
 const testUsername = 'thisaccount@email.com'
-const testPassword = 'Password1231!'
+const testPassword = 'Password123!'
 
 export default function TestUserLogin() {
   const [isLoading, setIsLoading] = useState(false)

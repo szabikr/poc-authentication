@@ -6,12 +6,17 @@ import Logo from './logo'
 export default function Header() {
   const location = useLocation()
 
-  const isAuthScreen = () => location.pathname.startsWith('/auth')
+  const showAuthLinks = () => location.pathname === '/'
+  const isHomePage = () => location.pathname.startsWith('/home')
+
+  if (isHomePage()) {
+    return null
+  }
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-between', pt: 2 }}>
       <Logo />
-      {!isAuthScreen() && (
+      {showAuthLinks() && (
         <Box>
           <Link to="/auth/login" style={{ textDecoration: 'none' }}>
             <Button sx={{ mr: 2 }} variant="text">

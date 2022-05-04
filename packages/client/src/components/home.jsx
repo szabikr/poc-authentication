@@ -1,19 +1,20 @@
 import React from 'react'
-import { Divider } from '@mui/material'
-
-import TestUserLogin from './test-user-login'
-import TestUserTokens from './test-user-tokens'
-import Todos from './todos'
+import { AppBar, Toolbar, Typography, Box } from '@mui/material'
+import LoginTestUserButton from './login-test-user-button'
+import RefreshAuthTokensButton from './refresh-auth-tokens-button'
 
 export default function Home() {
   return (
-    <>
-      <h1>Home page</h1>
-      <TestUserLogin />
-      <Divider />
-      <TestUserTokens />
-      <Divider />
-      <Todos />
-    </>
+    <Box sx={{ flexGrow: 1, mt: 4, mb: 6 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Move 2 Done
+          </Typography>
+          <LoginTestUserButton />
+          <RefreshAuthTokensButton />
+        </Toolbar>
+      </AppBar>
+    </Box>
   )
 }
