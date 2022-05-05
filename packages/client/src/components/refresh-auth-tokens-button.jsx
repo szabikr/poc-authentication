@@ -45,7 +45,7 @@ function RefreshAuthTokensButton({ handleError }) {
   }
   return (
     <Button
-      variant="contained"
+      variant="text"
       color="warning"
       disabled={isLoading}
       onClick={handleRefreshTokensButtonClick}

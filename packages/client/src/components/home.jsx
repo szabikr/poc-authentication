@@ -5,7 +5,7 @@ import RefreshAuthTokensButton from './refresh-auth-tokens-button'
 
 export default function Home() {
   return (
-    <Box sx={{ flexGrow: 1, mt: 4, mb: 6 }}>
+    <Box sx={{ mt: 4, mb: 6 }}>
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

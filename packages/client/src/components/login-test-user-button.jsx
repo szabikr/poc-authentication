@@ -58,7 +58,7 @@ function LoginTestUserButton({ handleError }) {
 
   return (
     <Button
-      variant="contained"
+      variant="text"
       color="success"
       disabled={isLoading}
       onClick={handleTestUserLoginButtonClick}
