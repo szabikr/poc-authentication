@@ -1,4 +1,6 @@
-const readline = require('readline')
+require('dotenv').config()
+
+const readline = require('node:readline')
 const { deleteE2eUsers, countUsers } = require('./db')
 
 console.log('')

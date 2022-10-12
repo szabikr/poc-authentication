@@ -1,5 +1,5 @@
 {
-  "name": "@mtd/server",
+  "name": "@auth/server",
   "version": "0.0.1",
   "description": "A simple todo app built with MERN stack",
   "main": "index.js",
