@@ -7,7 +7,7 @@ const { createRefreshToken } = require('./refresh-tokens-collection')
 
 async function login(req, res) {
   if (!req.body || !req.body.email || !req.body.password) {
-    return res.status(400).end('Invalid Request Body')
+    return res.status(400).json({ message: 'Invalid Request Body' })
   }
 
   const validation = validateLogin(req.body.email, req.body.password)
