@@ -5,7 +5,7 @@ const { validateRegister } = require('./validation')
 
 async function register(req, res) {
   if (!req.body || !req.body.email || !req.body.password) {
-    return res.status(400).end('Invalid Request Body')
+    return res.status(400).json({ message: 'Invalid Request Body' })
   }
 
   const validation = validateRegister(req.body.email, req.body.password)

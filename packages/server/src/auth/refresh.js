@@ -10,7 +10,7 @@ const { readUserById } = require('./users-collection')
 
 async function refresh(req, res) {
   if (!req.body || !req.body.refresh_token) {
-    return res.status(400).end('Invalid Request Body')
+    return res.status(400).json({ message: 'Invalid Request Body' })
   }
 
   const result = await readRefreshToken(req.body.refresh_token)
@@ -25,17 +25,17 @@ async function refresh(req, res) {
 
   if (!currentRefreshToken) {
     console.log('refresh token is incorrect')
-    return res.status(401).end('Access Denied')
+    return res.status(401).json({ message: 'Access Denied' })
   }
 
   if (currentRefreshToken.replacedBy) {
     invalidateRefreshTokenChain(currentRefreshToken)
-    return res.status(401).end('Access Denied')
+    return res.status(401).json({ message: 'Access Denied' })
   }
 
   if (currentRefreshToken.expiresAt < Date.now()) {
     console.log('refresh token has expired')
-    return res.status(401).end('Access Denied')
+    return res.status(401).json({ message: 'Access Denied' })
   }
 
   const userResult = await readUserById(currentRefreshToken.userId)
